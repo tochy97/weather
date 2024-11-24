@@ -1,4 +1,4 @@
-import React, { createRef, ReactNode, RefObject, useEffect, useRef, useState } from 'react'
+import React, { createRef, ReactNode, RefObject, useEffect, useState } from 'react'
 
 import { modalContainer, modalContentContainer, modalHeaderContainer, closeButton, pageDivider } from './classNames';
 
