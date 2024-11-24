@@ -15,10 +15,11 @@ type State = {
   inputs: Array<string>,
   temperature_unit: string,
   wind_speed_unit: string
-  weatherData: any
 }
 
 export default class Weather extends Component<Props, State> {
+
+  public weatherData: any;
 
   constructor(props: Props) {
     super(props);
@@ -28,11 +29,11 @@ export default class Weather extends Component<Props, State> {
       inputs: props.inputs,
       temperature_unit: props.temperature_unit,
       wind_speed_unit: props.wind_speed_unit,
-      weatherData: {}
     }
+    this.weatherData = {}
   }
 
-  getForcast = async () => {
+  #getForcast = async () => {
     const params = {
       "latitude": this.state.longitude,
       "longitude": this.state.latitude,
@@ -42,6 +43,20 @@ export default class Weather extends Component<Props, State> {
     };
     const url = "https://api.open-meteo.com/v1/forecast";
     return await fetchWeatherApi(url, params);
+  }
+
+  #parseForcast = (data: any) => {
+
+  }
+
+  updateForcast = async () => {
+    let response = await this.#getForcast();
+    if (response)
+      this.weatherData = this.#parseForcast(response);
+  }
+
+  nextRainyDay = async () => {
+
   }
 
   render() {
