@@ -10,27 +10,19 @@ type Props = {
 }
 
 type State = {
-  longitude: number,
-  latitude: number,
-  hourly: Array<string>,
-  temperature_unit: string,
-  wind_speed_unit: string
+  loaded: boolean
+  forcast: any
 }
 
 export default class Weather extends Component<Props, State> {
 
-  public weatherData: any;
 
   constructor(props: Props) {
     super(props);
     this.state = {
-      "longitude": props.longitude,
-      "latitude": props.latitude,
-      "hourly": props.hourly,
-      "temperature_unit": props.temperature_unit,
-      "wind_speed_unit": props.wind_speed_unit,
+      loaded: false,
+      forcast: {}
     }
-    this.weatherData = {}
   }
 
   #getForcast = async () => {
@@ -38,14 +30,16 @@ export default class Weather extends Component<Props, State> {
   }
 
   #parseForcast = (data: any) => {
-    
+    return {
+      loaded: true
+    }
   }
 
   updateForcast = async () => {
     let response = await this.#getForcast();
     if (response){
       console.log(response);debugger
-      this.weatherData = this.#parseForcast(response);
+      this.setState(this.#parseForcast(response));
   }}
 
   nextRainyDay = async () => {
