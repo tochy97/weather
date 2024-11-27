@@ -22,7 +22,6 @@ type Forcast = {
 type WeatherData = {
   date: Date,
   forcasts: Array<Forcast>,
-  current?: Forcast,
   current_weather_condition?: string,
   max_temperature?: number,
   min_temperature?: number,
@@ -31,7 +30,7 @@ type WeatherData = {
 
 type State = {
   loaded: boolean,
-  open_meteo: any,
+  open_meteo?: any,
   weather_data?: Array<WeatherData>
   current_forcast?: Forcast
 }
@@ -44,7 +43,6 @@ export default class Weather extends Component<Props, State> {
     super(props);
     this.state = {
       loaded: false,
-      open_meteo: {}
     }
     this.config = {
       longitude: props.longitude,
@@ -59,7 +57,30 @@ export default class Weather extends Component<Props, State> {
       this.config.hourly = ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "precipitation_probability", "precipitation", "weather_code", "cloud_cover", "visibility", "wind_speed_10m"]
     }
   }
-  getModeWeather(array: Array<Forcast>) {
+
+  getLoaded () {
+    return this.state.loaded;
+  }
+
+  getOpenMeteoData () {
+    return this.state.open_meteo;
+  }
+
+  getCurrentDayForcast () {
+    if (typeof this.state.weather_data !== "undefined" && Array.isArray(this.state.weather_data) && this.state.weather_data.length !== 0) {
+      return this.state.weather_data[0];
+    }
+    return {};
+  }
+
+  getCurrentHourForcast () {
+    if (typeof this.state.weather_data !== "undefined" && Array.isArray(this.state.weather_data) && this.state.weather_data.length !== 0 && typeof this.state.weather_data[0].forcasts !== "undefined" && Array.isArray(this.state.weather_data[0].forcasts) && this.state.weather_data[0].forcasts.length !== 0) {
+      return this.state.weather_data[0].forcasts[0];
+    }
+    return {};
+  }
+
+  findModeWeather (array: Array<Forcast>) {
     if (array.length === 0)
       return null;
     var mode = array[0].weather ?? 0, modeMap = [], maxCount = 1;
@@ -130,7 +151,7 @@ export default class Weather extends Component<Props, State> {
       const { min, max } = this.findMinMaxTemperature(weather_array[i].forcasts)
       weather_array[i].max_temperature = max;
       weather_array[i].min_temperature = min;
-      weather_array[i].mode_weather_condition = this.getModeWeather(weather_array[i].forcasts);
+      weather_array[i].mode_weather_condition = this.findModeWeather(weather_array[i].forcasts);
       weather_array[i].current_weather_condition = this.convertWMO(weather_array[i].mode_weather_condition);
     }
 

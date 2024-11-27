@@ -7,7 +7,5 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
     <Weather longitude={-97.028336} latitude={32.679420} temperature_unit='fahrenheit' wind_speed_unit='mph' hourly={[]} />
-  </React.StrictMode>
 );
