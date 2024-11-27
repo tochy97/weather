@@ -22,8 +22,8 @@ type Forcast = {
 type WeatherData = {
   date: Date,
   forcasts: Array<Forcast>,
-  current_temperature?: number,
-  current_weather_condition?: number,
+  current?: Forcast,
+  current_weather_condition?: string,
   max_temperature?: number,
   min_temperature?: number,
   mode_weather_condition?: number | undefined | null,
@@ -59,31 +59,28 @@ export default class Weather extends Component<Props, State> {
       this.config.hourly = ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "precipitation_probability", "precipitation", "weather_code", "cloud_cover", "visibility", "wind_speed_10m"]
     }
   }
-  getModeWeather(array: Array<Forcast>)
-  {
-      if(array.length === 0)
-          return null;
-      var mode = array[0].weather ?? 0, modeMap = [], maxCount = 1;
-      for(var i = 0; i < array.length; i++)
-      {
-          var el = array[i].weather;
-          if(modeMap[el] === null)
-              modeMap[el] = 1;
-          else
-              modeMap[el]++;  
-          if(modeMap[el] > maxCount)
-          {
-              mode = el;
-              maxCount = modeMap[el];
-          }
+  getModeWeather(array: Array<Forcast>) {
+    if (array.length === 0)
+      return null;
+    var mode = array[0].weather ?? 0, modeMap = [], maxCount = 1;
+    for (var i = 0; i < array.length; i++) {
+      var el = array[i].weather;
+      if (modeMap[el] === null)
+        modeMap[el] = 1;
+      else
+        modeMap[el]++;
+      if (modeMap[el] > maxCount) {
+        mode = el;
+        maxCount = modeMap[el];
       }
-      return mode;
+    }
+    return mode;
   }
 
   findMinMaxTemperature = (forcasts: Array<Forcast>) => {
     const max = forcasts.reduce((prev, curr) => (curr.temperature > prev.temperature ? curr : prev)).temperature;
     const min = forcasts.reduce((prev, curr) => (curr.temperature < prev.temperature ? curr : prev)).temperature;
-    return {min, max}
+    return { min, max }
   }
 
   parseWeather = (open_meteo: any) => {
@@ -130,10 +127,11 @@ export default class Weather extends Component<Props, State> {
     }
 
     for (let i = 0; i < weather_array.length; i++) {
-      const {min, max} = this.findMinMaxTemperature(weather_array[i].forcasts)
+      const { min, max } = this.findMinMaxTemperature(weather_array[i].forcasts)
       weather_array[i].max_temperature = max;
       weather_array[i].min_temperature = min;
-      weather_array[i].mode_weather_condition = this.getModeWeather(weather_array[i].forcasts)
+      weather_array[i].mode_weather_condition = this.getModeWeather(weather_array[i].forcasts);
+      weather_array[i].current_weather_condition = this.convertWMO(weather_array[i].mode_weather_condition);
     }
 
     console.log(weather_array)
@@ -149,20 +147,19 @@ export default class Weather extends Component<Props, State> {
     const range = (start: number, stop: number, step: number) =>
       Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
     const open_meteo = {
-        time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-          (t) => new Date((t + utcOffsetSeconds) * 1000)
-        ),
-        temperature2m: hourly.variables(0)!.valuesArray()!,
-        relativeHumidity2m: hourly.variables(1)!.valuesArray()!,
-        apparentTemperature: hourly.variables(2)!.valuesArray()!,
-        precipitationProbability: hourly.variables(3)!.valuesArray()!,
-        precipitation: hourly.variables(4)!.valuesArray()!,
-        weatherCode: hourly.variables(5)!.valuesArray()!,
-        cloudCover: hourly.variables(6)!.valuesArray()!,
-        visibility: hourly.variables(7)!.valuesArray()!,
-        windSpeed10m: hourly.variables(8)!.valuesArray()!,
+      time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+        (t) => new Date((t + utcOffsetSeconds) * 1000)
+      ),
+      temperature2m: hourly.variables(0)!.valuesArray()!,
+      relativeHumidity2m: hourly.variables(1)!.valuesArray()!,
+      apparentTemperature: hourly.variables(2)!.valuesArray()!,
+      precipitationProbability: hourly.variables(3)!.valuesArray()!,
+      precipitation: hourly.variables(4)!.valuesArray()!,
+      weatherCode: hourly.variables(5)!.valuesArray()!,
+      cloudCover: hourly.variables(6)!.valuesArray()!,
+      visibility: hourly.variables(7)!.valuesArray()!,
+      windSpeed10m: hourly.variables(8)!.valuesArray()!,
     };
-    console.log(open_meteo)
     return open_meteo;
   }
 
@@ -179,8 +176,45 @@ export default class Weather extends Component<Props, State> {
     }
   }
 
-  convertWMO = () => {
-
+  convertWMO = (weather_code: number | undefined | null) => {
+    let output = "";
+    if (typeof weather_code === "undefined" || weather_code === null) {
+      return;
+    }
+    if (weather_code === 0) {
+      output = "Sunny";
+    }
+    else if (weather_code <= 3) {
+      output = "Cloudy";
+    }
+    else if (weather_code === 45 || weather_code === 48) {
+      output = "Fog";
+    }
+    else if (weather_code >= 51 && weather_code <= 67) {
+      output = "Rain";
+      if (!(weather_code - 50 <= 5) && !(weather_code - 60 <= 5)) {
+        output = "Freezing " + output;
+      }
+      if (weather_code > 60) {
+        output= "Heavy " + output;
+      }
+    }
+    else if (weather_code > 70 && weather_code < 80) {
+      output = "Snow";
+    }
+    else if (weather_code >= 80 && weather_code <= 82) {
+      output = "Violent Rain";
+    }
+    else if (weather_code === 85 || weather_code === 86) {
+      output = "Heavy Snow";
+    }
+    else if (weather_code >= 95 && weather_code <= 99) {
+      output = "Thunderstorm";
+      if (weather_code === 96 || weather_code === 99) {
+        output += " with Hail";
+      }
+    }
+    return output;
   }
 
   nextRainyDay = async () => {
