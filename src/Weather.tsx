@@ -9,9 +9,28 @@ type Props = {
   wind_speed_unit: string
 }
 
+type Forcast = {
+  hour: number,
+  weather: string,
+  wind_speed: number,
+  temperature: number,
+  visibility: number,
+  rain_propability: number,
+  humidity: number
+}
+
+type WeatherData = {
+  date: Date,
+  forcast: Array<Forcast>,
+  max_temperature?: number,
+  min_temperature?: number,
+  weather_condition?: string,
+}
+
 type State = {
   loaded: boolean,
-  forcast: any
+  open_meteo: any,
+  weather_data?: Array<WeatherData>
 }
 
 export default class Weather extends Component<Props, State> {
@@ -22,7 +41,7 @@ export default class Weather extends Component<Props, State> {
     super(props);
     this.state = {
       loaded: false,
-      forcast: {}
+      open_meteo: {}
     }
     this.config = {
       longitude: props.longitude,
@@ -38,21 +57,61 @@ export default class Weather extends Component<Props, State> {
     }
   }
 
+  #parseWeather = (open_meteo: any) => {
+    const today: Date = new Date();
+    let hour: number;
 
-  #getForcast = async () => {
-    return await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", this.config);
+    let weather: WeatherData;
+    let weather_array: Array<WeatherData> = [];
+    let index: number = -1;
+    for (let i = 0; i < open_meteo.time.length; i++) {
+      hour = new Date(open_meteo.time[i]).getHours();
+      if (weather_array[index]?.date.toLocaleDateString() === open_meteo.time[i].toLocaleDateString()) {
+        weather_array[index].forcast.push({
+          hour: hour,
+          temperature: open_meteo.temperature2m[i],
+          weather: open_meteo.weatherCode[i],
+          wind_speed: open_meteo.windSpeed10m[i],
+          visibility: open_meteo.visibility[i],
+          rain_propability: open_meteo.precipitationProbability[i],
+          humidity: open_meteo.relativeHumidity2m[i]
+        })
+      }
+      else {
+        if (open_meteo.time[i] < today) {
+          continue;
+        }
+        weather = {
+          date: new Date(open_meteo.time[i].toLocaleDateString()),
+          forcast: [
+            {
+              hour: hour,
+              temperature: open_meteo.temperature2m[i],
+              weather: open_meteo.weatherCode[i],
+              wind_speed: open_meteo.windSpeed10m[i],
+              visibility: open_meteo.visibility[i],
+              rain_propability: open_meteo.precipitationProbability[i],
+              humidity: open_meteo.relativeHumidity2m[i]
+            }
+          ]
+        }
+        weather_array.push(weather);
+        index += 1;
+      }
+    }
+    console.log(weather_array)
+    return weather_array;
   }
 
   // From open-meteo documentation - https://open-meteo.com/en/docs
-  #parseForcast = (data: any) => {
-    const hourly = data[0].hourly()!;
-    const utcOffsetSeconds = data[0].utcOffsetSeconds();
+  #parseOpenMeteo = (response: any) => {
+    const hourly = response[0].hourly()!;
+    const utcOffsetSeconds = response[0].utcOffsetSeconds();
 
     // Helper function to form time ranges
     const range = (start: number, stop: number, step: number) =>
       Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
-    const weatherData = {
-      hourly: {
+    const open_meteo = {
         time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
           (t) => new Date((t + utcOffsetSeconds) * 1000)
         ),
@@ -65,27 +124,25 @@ export default class Weather extends Component<Props, State> {
         cloudCover: hourly.variables(6)!.valuesArray()!,
         visibility: hourly.variables(7)!.valuesArray()!,
         windSpeed10m: hourly.variables(8)!.valuesArray()!,
-      },
     };
-    console.log(weatherData)
-    const output = Object.keys(weatherData).reduce(function (previous, key) {
-      return previous;
-    }, {});
+    return open_meteo;
   }
 
-  /* Coming soon
-  convertWMO = () => {
-
-  }
-  */
-  updateForcast = async () => {
-    let responses = await this.#getForcast();
+  updateWeather = async () => {
+    const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", this.config);
     if (responses) {
+      const open_meteo = this.#parseOpenMeteo(responses);
+      const weather_data = this.#parseWeather(open_meteo);
       this.setState({
-        forcast: this.#parseForcast(responses),
-        loaded: true,
+        open_meteo: open_meteo,
+        weather_data: weather_data,
+        loaded: true
       })
     }
+  }
+
+  convertWMO = () => {
+
   }
 
   nextRainyDay = async () => {
@@ -95,7 +152,7 @@ export default class Weather extends Component<Props, State> {
   render() {
     return (
       <div>Weather
-        <button onClick={this.updateForcast} >click</button>
+        <button onClick={this.updateWeather} >click</button>
       </div>
     )
   }

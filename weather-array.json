@@ -1,0 +1,1536 @@
+[
+    {
+        "date": "2024-11-26T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 20,
+                "temperature": 53.49829864501953,
+                "weather": 0,
+                "wind_speed": 6.10582160949707,
+                "visibility": 28100,
+                "rain_propability": 0,
+                "humidity": 62
+            },
+            {
+                "hour": 21,
+                "temperature": 54.038299560546875,
+                "weather": 1,
+                "wind_speed": 6.938307285308838,
+                "visibility": 30900,
+                "rain_propability": 0,
+                "humidity": 58
+            },
+            {
+                "hour": 22,
+                "temperature": 52.50830078125,
+                "weather": 0,
+                "wind_speed": 6.10582160949707,
+                "visibility": 33400,
+                "rain_propability": 0,
+                "humidity": 55
+            },
+            {
+                "hour": 23,
+                "temperature": 51.968299865722656,
+                "weather": 1,
+                "wind_speed": 7.109296798706055,
+                "visibility": 30300,
+                "rain_propability": 0,
+                "humidity": 59
+            }
+        ]
+    },
+    {
+        "date": "2024-11-27T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 51.06829833984375,
+                "weather": 3,
+                "wind_speed": 4.966946601867676,
+                "visibility": 26400,
+                "rain_propability": 0,
+                "humidity": 64
+            },
+            {
+                "hour": 1,
+                "temperature": 51.608299255371094,
+                "weather": 3,
+                "wind_speed": 7.245255947113037,
+                "visibility": 22600,
+                "rain_propability": 0,
+                "humidity": 70
+            },
+            {
+                "hour": 2,
+                "temperature": 51.698299407958984,
+                "weather": 3,
+                "wind_speed": 6.945516109466553,
+                "visibility": 18000,
+                "rain_propability": 0,
+                "humidity": 80
+            },
+            {
+                "hour": 3,
+                "temperature": 51.698299407958984,
+                "weather": 3,
+                "wind_speed": 7.546352863311768,
+                "visibility": 14500,
+                "rain_propability": 0,
+                "humidity": 88
+            },
+            {
+                "hour": 4,
+                "temperature": 53.04829788208008,
+                "weather": 3,
+                "wind_speed": 10.312060356140137,
+                "visibility": 12900,
+                "rain_propability": 0,
+                "humidity": 92
+            },
+            {
+                "hour": 5,
+                "temperature": 54.30830001831055,
+                "weather": 3,
+                "wind_speed": 10.851179122924805,
+                "visibility": 12500,
+                "rain_propability": 0,
+                "humidity": 94
+            },
+            {
+                "hour": 6,
+                "temperature": 54.848297119140625,
+                "weather": 2,
+                "wind_speed": 10.542418479919434,
+                "visibility": 12600,
+                "rain_propability": 0,
+                "humidity": 94
+            },
+            {
+                "hour": 7,
+                "temperature": 54.48830032348633,
+                "weather": 1,
+                "wind_speed": 9.138904571533203,
+                "visibility": 12600,
+                "rain_propability": 0,
+                "humidity": 93
+            },
+            {
+                "hour": 8,
+                "temperature": 55.478302001953125,
+                "weather": 0,
+                "wind_speed": 9.138904571533203,
+                "visibility": 13100,
+                "rain_propability": 0,
+                "humidity": 92
+            },
+            {
+                "hour": 9,
+                "temperature": 60.33829879760742,
+                "weather": 2,
+                "wind_speed": 13.27956771850586,
+                "visibility": 18000,
+                "rain_propability": 0,
+                "humidity": 78
+            },
+            {
+                "hour": 10,
+                "temperature": 64.92829895019531,
+                "weather": 0,
+                "wind_speed": 14.607455253601074,
+                "visibility": 25500,
+                "rain_propability": 0,
+                "humidity": 64
+            },
+            {
+                "hour": 11,
+                "temperature": 69.96829986572266,
+                "weather": 0,
+                "wind_speed": 13.129874229431152,
+                "visibility": 34400,
+                "rain_propability": 0,
+                "humidity": 52
+            },
+            {
+                "hour": 12,
+                "temperature": 74.46829986572266,
+                "weather": 0,
+                "wind_speed": 12.97459888458252,
+                "visibility": 45300,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 13,
+                "temperature": 78.15829467773438,
+                "weather": 3,
+                "wind_speed": 12.717496871948242,
+                "visibility": 54300,
+                "rain_propability": 0,
+                "humidity": 34
+            },
+            {
+                "hour": 14,
+                "temperature": 79.7782974243164,
+                "weather": 0,
+                "wind_speed": 14.395230293273926,
+                "visibility": 58200,
+                "rain_propability": 1,
+                "humidity": 32
+            },
+            {
+                "hour": 15,
+                "temperature": 80.04830169677734,
+                "weather": 0,
+                "wind_speed": 12.719464302062988,
+                "visibility": 55600,
+                "rain_propability": 1,
+                "humidity": 34
+            },
+            {
+                "hour": 16,
+                "temperature": 79.41830444335938,
+                "weather": 3,
+                "wind_speed": 12.21164321899414,
+                "visibility": 57000,
+                "rain_propability": 1,
+                "humidity": 33
+            },
+            {
+                "hour": 17,
+                "temperature": 75.00830078125,
+                "weather": 0,
+                "wind_speed": 10.329030990600586,
+                "visibility": 50900,
+                "rain_propability": 1,
+                "humidity": 38
+            },
+            {
+                "hour": 18,
+                "temperature": 69.69830322265625,
+                "weather": 1,
+                "wind_speed": 6.71472692489624,
+                "visibility": 44600,
+                "rain_propability": 1,
+                "humidity": 43
+            },
+            {
+                "hour": 19,
+                "temperature": 66.00830078125,
+                "weather": 3,
+                "wind_speed": 4.032809257507324,
+                "visibility": 38700,
+                "rain_propability": 1,
+                "humidity": 49
+            },
+            {
+                "hour": 20,
+                "temperature": 65.73829650878906,
+                "weather": 3,
+                "wind_speed": 16.427867889404297,
+                "visibility": 42000,
+                "rain_propability": 1,
+                "humidity": 46
+            },
+            {
+                "hour": 21,
+                "temperature": 59.70829772949219,
+                "weather": 3,
+                "wind_speed": 15.698895454406738,
+                "visibility": 38800,
+                "rain_propability": 1,
+                "humidity": 48
+            },
+            {
+                "hour": 22,
+                "temperature": 57.27830123901367,
+                "weather": 3,
+                "wind_speed": 14.770977020263672,
+                "visibility": 34700,
+                "rain_propability": 1,
+                "humidity": 53
+            },
+            {
+                "hour": 23,
+                "temperature": 55.83829879760742,
+                "weather": 3,
+                "wind_speed": 16.567398071289062,
+                "visibility": 31500,
+                "rain_propability": 1,
+                "humidity": 57
+            }
+        ]
+    },
+    {
+        "date": "2024-11-28T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 54.30830001831055,
+                "weather": 3,
+                "wind_speed": 17.564369201660156,
+                "visibility": 38300,
+                "rain_propability": 2,
+                "humidity": 49
+            },
+            {
+                "hour": 1,
+                "temperature": 52.41830062866211,
+                "weather": 3,
+                "wind_speed": 16.783464431762695,
+                "visibility": 38200,
+                "rain_propability": 2,
+                "humidity": 49
+            },
+            {
+                "hour": 2,
+                "temperature": 50.79829788208008,
+                "weather": 3,
+                "wind_speed": 14.779443740844727,
+                "visibility": 28800,
+                "rain_propability": 2,
+                "humidity": 60
+            },
+            {
+                "hour": 3,
+                "temperature": 49.89830017089844,
+                "weather": 3,
+                "wind_speed": 13.00541877746582,
+                "visibility": 24400,
+                "rain_propability": 3,
+                "humidity": 66
+            },
+            {
+                "hour": 4,
+                "temperature": 49.2682991027832,
+                "weather": 3,
+                "wind_speed": 13.166032791137695,
+                "visibility": 25300,
+                "rain_propability": 3,
+                "humidity": 65
+            },
+            {
+                "hour": 5,
+                "temperature": 47.82830047607422,
+                "weather": 3,
+                "wind_speed": 13.76254940032959,
+                "visibility": 28900,
+                "rain_propability": 3,
+                "humidity": 60
+            },
+            {
+                "hour": 6,
+                "temperature": 46.83829879760742,
+                "weather": 3,
+                "wind_speed": 13.73525333404541,
+                "visibility": 30000,
+                "rain_propability": 3,
+                "humidity": 58
+            },
+            {
+                "hour": 7,
+                "temperature": 46.20830154418945,
+                "weather": 3,
+                "wind_speed": 13.319076538085938,
+                "visibility": 30100,
+                "rain_propability": 1,
+                "humidity": 58
+            },
+            {
+                "hour": 8,
+                "temperature": 46.388301849365234,
+                "weather": 3,
+                "wind_speed": 11.666764259338379,
+                "visibility": 30800,
+                "rain_propability": 1,
+                "humidity": 57
+            },
+            {
+                "hour": 9,
+                "temperature": 47.64830017089844,
+                "weather": 3,
+                "wind_speed": 13.645699501037598,
+                "visibility": 41000,
+                "rain_propability": 1,
+                "humidity": 45
+            },
+            {
+                "hour": 10,
+                "temperature": 49.08829879760742,
+                "weather": 3,
+                "wind_speed": 14.764199256896973,
+                "visibility": 47300,
+                "rain_propability": 1,
+                "humidity": 39
+            },
+            {
+                "hour": 11,
+                "temperature": 50.16830062866211,
+                "weather": 3,
+                "wind_speed": 15.211600303649902,
+                "visibility": 50600,
+                "rain_propability": 1,
+                "humidity": 37
+            },
+            {
+                "hour": 12,
+                "temperature": 51.608299255371094,
+                "weather": 3,
+                "wind_speed": 15.436920166015625,
+                "visibility": 56200,
+                "rain_propability": 1,
+                "humidity": 33
+            },
+            {
+                "hour": 13,
+                "temperature": 54.96440124511719,
+                "weather": 0,
+                "wind_speed": 15.436920166015625,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 33
+            },
+            {
+                "hour": 14,
+                "temperature": 55.68439865112305,
+                "weather": 0,
+                "wind_speed": 16.12037467956543,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 31
+            },
+            {
+                "hour": 15,
+                "temperature": 55.50440216064453,
+                "weather": 3,
+                "wind_speed": 16.131237030029297,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 28
+            },
+            {
+                "hour": 16,
+                "temperature": 54.784400939941406,
+                "weather": 1,
+                "wind_speed": 16.112611770629883,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 27
+            },
+            {
+                "hour": 17,
+                "temperature": 53.16440200805664,
+                "weather": 3,
+                "wind_speed": 14.318547248840332,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 29
+            },
+            {
+                "hour": 18,
+                "temperature": 51.54439926147461,
+                "weather": 3,
+                "wind_speed": 13.645699501037598,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 31
+            },
+            {
+                "hour": 19,
+                "temperature": 50.3744010925293,
+                "weather": 0,
+                "wind_speed": 13.451793670654297,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 33
+            },
+            {
+                "hour": 20,
+                "temperature": 49.29439926147461,
+                "weather": 3,
+                "wind_speed": 12.846692085266113,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 36
+            },
+            {
+                "hour": 21,
+                "temperature": 48.1244010925293,
+                "weather": 2,
+                "wind_speed": 12.065292358398438,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 38
+            },
+            {
+                "hour": 22,
+                "temperature": 46.95439910888672,
+                "weather": 0,
+                "wind_speed": 11.889817237854004,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 39
+            },
+            {
+                "hour": 23,
+                "temperature": 45.8744010925293,
+                "weather": 0,
+                "wind_speed": 11.891921997070312,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            }
+        ]
+    },
+    {
+        "date": "2024-11-29T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 44.97439956665039,
+                "weather": 0,
+                "wind_speed": 10.823473930358887,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 43
+            },
+            {
+                "hour": 1,
+                "temperature": 44.164398193359375,
+                "weather": 0,
+                "wind_speed": 10.611021995544434,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 44
+            },
+            {
+                "hour": 2,
+                "temperature": 43.354400634765625,
+                "weather": 0,
+                "wind_speed": 11.615179061889648,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 45
+            },
+            {
+                "hour": 3,
+                "temperature": 42.6343994140625,
+                "weather": 0,
+                "wind_speed": 10.634576797485352,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 47
+            },
+            {
+                "hour": 4,
+                "temperature": 41.82440185546875,
+                "weather": 0,
+                "wind_speed": 10.10866641998291,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 47
+            },
+            {
+                "hour": 5,
+                "temperature": 41.194400787353516,
+                "weather": 0,
+                "wind_speed": 9.908673286437988,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 47
+            },
+            {
+                "hour": 6,
+                "temperature": 40.56439971923828,
+                "weather": 0,
+                "wind_speed": 9.247770309448242,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 48
+            },
+            {
+                "hour": 7,
+                "temperature": 40.114402770996094,
+                "weather": 0,
+                "wind_speed": 8.712820053100586,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 48
+            },
+            {
+                "hour": 8,
+                "temperature": 40.924400329589844,
+                "weather": 0,
+                "wind_speed": 8.065618515014648,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 47
+            },
+            {
+                "hour": 9,
+                "temperature": 43.264400482177734,
+                "weather": 0,
+                "wind_speed": 8.385021209716797,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 42
+            },
+            {
+                "hour": 10,
+                "temperature": 45.604400634765625,
+                "weather": 0,
+                "wind_speed": 7.436132907867432,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 37
+            },
+            {
+                "hour": 11,
+                "temperature": 47.944400787353516,
+                "weather": 0,
+                "wind_speed": 7.449579238891602,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 33
+            },
+            {
+                "hour": 12,
+                "temperature": 49.924400329589844,
+                "weather": 0,
+                "wind_speed": 6.967096328735352,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 29
+            },
+            {
+                "hour": 13,
+                "temperature": 51.6343994140625,
+                "weather": 0,
+                "wind_speed": 6.651079177856445,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 26
+            },
+            {
+                "hour": 14,
+                "temperature": 52.89440155029297,
+                "weather": 0,
+                "wind_speed": 6.219503879547119,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 25
+            },
+            {
+                "hour": 15,
+                "temperature": 53.52439880371094,
+                "weather": 0,
+                "wind_speed": 5.106047630310059,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 24
+            },
+            {
+                "hour": 16,
+                "temperature": 53.25440216064453,
+                "weather": 3,
+                "wind_speed": 4.951810359954834,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 24
+            },
+            {
+                "hour": 17,
+                "temperature": 51.094398498535156,
+                "weather": 3,
+                "wind_speed": 4.256182670593262,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 28
+            },
+            {
+                "hour": 18,
+                "temperature": 49.56439971923828,
+                "weather": 3,
+                "wind_speed": 5.110945224761963,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 30
+            },
+            {
+                "hour": 19,
+                "temperature": 48.844398498535156,
+                "weather": 3,
+                "wind_speed": 5.645932197570801,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 33
+            },
+            {
+                "hour": 20,
+                "temperature": 48.034400939941406,
+                "weather": 3,
+                "wind_speed": 6.533418655395508,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 35
+            },
+            {
+                "hour": 21,
+                "temperature": 47.04439926147461,
+                "weather": 3,
+                "wind_speed": 6.044041156768799,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 37
+            },
+            {
+                "hour": 22,
+                "temperature": 46.504398345947266,
+                "weather": 3,
+                "wind_speed": 6.710999965667725,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 39
+            },
+            {
+                "hour": 23,
+                "temperature": 45.33440017700195,
+                "weather": 3,
+                "wind_speed": 7.137397766113281,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            }
+        ]
+    },
+    {
+        "date": "2024-11-30T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 44.52439880371094,
+                "weather": 3,
+                "wind_speed": 6.829264163970947,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 43
+            },
+            {
+                "hour": 1,
+                "temperature": 44.344398498535156,
+                "weather": 3,
+                "wind_speed": 6.829264163970947,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 43
+            },
+            {
+                "hour": 2,
+                "temperature": 43.444400787353516,
+                "weather": 3,
+                "wind_speed": 7.409165859222412,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 45
+            },
+            {
+                "hour": 3,
+                "temperature": 42.544403076171875,
+                "weather": 3,
+                "wind_speed": 8.105846405029297,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 46
+            },
+            {
+                "hour": 4,
+                "temperature": 42.27439880371094,
+                "weather": 3,
+                "wind_speed": 7.905825614929199,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 47
+            },
+            {
+                "hour": 5,
+                "temperature": 41.46440124511719,
+                "weather": 3,
+                "wind_speed": 9.223386764526367,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 49
+            },
+            {
+                "hour": 6,
+                "temperature": 41.014400482177734,
+                "weather": 3,
+                "wind_speed": 8.849590301513672,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 50
+            },
+            {
+                "hour": 7,
+                "temperature": 40.74440002441406,
+                "weather": 3,
+                "wind_speed": 9.138904571533203,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 50
+            },
+            {
+                "hour": 8,
+                "temperature": 41.82440185546875,
+                "weather": 3,
+                "wind_speed": 9.928853988647461,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 49
+            },
+            {
+                "hour": 9,
+                "temperature": 44.8843994140625,
+                "weather": 3,
+                "wind_speed": 12.24642562866211,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 46
+            },
+            {
+                "hour": 10,
+                "temperature": 48.93439865112305,
+                "weather": 3,
+                "wind_speed": 12.908865928649902,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 11,
+                "temperature": 52.444400787353516,
+                "weather": 3,
+                "wind_speed": 13.468523025512695,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 36
+            },
+            {
+                "hour": 12,
+                "temperature": 55.41440200805664,
+                "weather": 3,
+                "wind_speed": 12.079800605773926,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 32
+            },
+            {
+                "hour": 13,
+                "temperature": 57.66440200805664,
+                "weather": 3,
+                "wind_speed": 10.924715995788574,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 30
+            },
+            {
+                "hour": 14,
+                "temperature": 59.104400634765625,
+                "weather": 3,
+                "wind_speed": 10.749244689941406,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 30
+            },
+            {
+                "hour": 15,
+                "temperature": 59.284400939941406,
+                "weather": 3,
+                "wind_speed": 10.046595573425293,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 30
+            },
+            {
+                "hour": 16,
+                "temperature": 59.194400787353516,
+                "weather": 3,
+                "wind_speed": 8.352131843566895,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 31
+            },
+            {
+                "hour": 17,
+                "temperature": 56.40439987182617,
+                "weather": 3,
+                "wind_speed": 6.085297584533691,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 36
+            },
+            {
+                "hour": 18,
+                "temperature": 54.15439987182617,
+                "weather": 3,
+                "wind_speed": 6.219503879547119,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 39
+            },
+            {
+                "hour": 19,
+                "temperature": 53.16440200805664,
+                "weather": 3,
+                "wind_speed": 6.533418655395508,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 20,
+                "temperature": 52.534400939941406,
+                "weather": 3,
+                "wind_speed": 6.891266822814941,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 42
+            },
+            {
+                "hour": 21,
+                "temperature": 51.72439956665039,
+                "weather": 3,
+                "wind_speed": 6.1872358322143555,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 44
+            },
+            {
+                "hour": 22,
+                "temperature": 51.18439865112305,
+                "weather": 3,
+                "wind_speed": 5.5385518074035645,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 45
+            },
+            {
+                "hour": 23,
+                "temperature": 50.3744010925293,
+                "weather": 3,
+                "wind_speed": 5.279509544372559,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 46
+            }
+        ]
+    },
+    {
+        "date": "2024-12-01T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 49.56439971923828,
+                "weather": 2,
+                "wind_speed": 4.606264591217041,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 48
+            },
+            {
+                "hour": 1,
+                "temperature": 48.93439865112305,
+                "weather": 3,
+                "wind_speed": 4.2971367835998535,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 49
+            },
+            {
+                "hour": 2,
+                "temperature": 48.1244010925293,
+                "weather": 2,
+                "wind_speed": 4.112674236297607,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 51
+            },
+            {
+                "hour": 3,
+                "temperature": 47.49440002441406,
+                "weather": 3,
+                "wind_speed": 3.4727580547332764,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 52
+            },
+            {
+                "hour": 4,
+                "temperature": 48.034400939941406,
+                "weather": 3,
+                "wind_speed": 3.8616607189178467,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 51
+            },
+            {
+                "hour": 5,
+                "temperature": 47.674400329589844,
+                "weather": 2,
+                "wind_speed": 4.589940071105957,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 50
+            },
+            {
+                "hour": 6,
+                "temperature": 47.944400787353516,
+                "weather": 2,
+                "wind_speed": 6.044041156768799,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 48
+            },
+            {
+                "hour": 7,
+                "temperature": 48.30440139770508,
+                "weather": 2,
+                "wind_speed": 7.829499244689941,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 47
+            },
+            {
+                "hour": 8,
+                "temperature": 48.75440216064453,
+                "weather": 3,
+                "wind_speed": 9.440564155578613,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 46
+            },
+            {
+                "hour": 9,
+                "temperature": 49.47439956665039,
+                "weather": 3,
+                "wind_speed": 10.379776954650879,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 45
+            },
+            {
+                "hour": 10,
+                "temperature": 50.55440139770508,
+                "weather": 3,
+                "wind_speed": 10.202289581298828,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 44
+            },
+            {
+                "hour": 11,
+                "temperature": 51.81439971923828,
+                "weather": 3,
+                "wind_speed": 9.53812313079834,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 43
+            },
+            {
+                "hour": 12,
+                "temperature": 52.984397888183594,
+                "weather": 3,
+                "wind_speed": 8.90876579284668,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 42
+            },
+            {
+                "hour": 13,
+                "temperature": 54.24440002441406,
+                "weather": 3,
+                "wind_speed": 8.947999954223633,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 40
+            },
+            {
+                "hour": 14,
+                "temperature": 55.50440216064453,
+                "weather": 3,
+                "wind_speed": 9.182605743408203,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 38
+            },
+            {
+                "hour": 15,
+                "temperature": 56.04439926147461,
+                "weather": 3,
+                "wind_speed": 9.247770309448242,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 37
+            },
+            {
+                "hour": 16,
+                "temperature": 55.41440200805664,
+                "weather": 3,
+                "wind_speed": 8.872179985046387,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 38
+            },
+            {
+                "hour": 17,
+                "temperature": 53.97439956665039,
+                "weather": 3,
+                "wind_speed": 8.142803192138672,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 40
+            },
+            {
+                "hour": 18,
+                "temperature": 52.80440139770508,
+                "weather": 3,
+                "wind_speed": 7.6189470291137695,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 19,
+                "temperature": 52.174400329589844,
+                "weather": 3,
+                "wind_speed": 7.6189470291137695,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 20,
+                "temperature": 51.6343994140625,
+                "weather": 3,
+                "wind_speed": 7.965730667114258,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 21,
+                "temperature": 51.00440216064453,
+                "weather": 3,
+                "wind_speed": 8.142803192138672,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 41
+            },
+            {
+                "hour": 22,
+                "temperature": 50.014400482177734,
+                "weather": 3,
+                "wind_speed": 7.829499244689941,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 42
+            },
+            {
+                "hour": 23,
+                "temperature": 48.93439865112305,
+                "weather": 3,
+                "wind_speed": 7.024322032928467,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 44
+            }
+        ]
+    },
+    {
+        "date": "2024-12-02T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 47.944400787353516,
+                "weather": 3,
+                "wind_speed": 6.533418655395508,
+                "visibility": 24140,
+                "rain_propability": 0,
+                "humidity": 46
+            },
+            {
+                "hour": 1,
+                "temperature": 47.22439956665039,
+                "weather": 2,
+                "wind_speed": 6.358748435974121,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 47
+            },
+            {
+                "hour": 2,
+                "temperature": 46.68439865112305,
+                "weather": 1,
+                "wind_speed": 6.01915168762207,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 48
+            },
+            {
+                "hour": 3,
+                "temperature": 46.14440155029297,
+                "weather": 0,
+                "wind_speed": 6.010831832885742,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 50
+            },
+            {
+                "hour": 4,
+                "temperature": 45.604400634765625,
+                "weather": 0,
+                "wind_speed": 6.219503879547119,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 53
+            },
+            {
+                "hour": 5,
+                "temperature": 45.15439987182617,
+                "weather": 1,
+                "wind_speed": 6.909397602081299,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 56
+            },
+            {
+                "hour": 6,
+                "temperature": 45.06439971923828,
+                "weather": 1,
+                "wind_speed": 7.436132431030273,
+                "visibility": 24140,
+                "rain_propability": 1,
+                "humidity": 58
+            },
+            {
+                "hour": 7,
+                "temperature": 45.33440017700195,
+                "weather": 1,
+                "wind_speed": 7.86775541305542,
+                "visibility": 24140,
+                "rain_propability": 3,
+                "humidity": 58
+            },
+            {
+                "hour": 8,
+                "temperature": 45.8744010925293,
+                "weather": 0,
+                "wind_speed": 8.352131843566895,
+                "visibility": 24140,
+                "rain_propability": 3,
+                "humidity": 58
+            },
+            {
+                "hour": 9,
+                "temperature": 46.68439865112305,
+                "weather": 0,
+                "wind_speed": 8.735764503479004,
+                "visibility": 24140,
+                "rain_propability": 3,
+                "humidity": 56
+            },
+            {
+                "hour": 10,
+                "temperature": 48.034400939941406,
+                "weather": 1,
+                "wind_speed": 8.727168083190918,
+                "visibility": 24140,
+                "rain_propability": 3,
+                "humidity": 53
+            },
+            {
+                "hour": 11,
+                "temperature": 49.74440002441406,
+                "weather": 2,
+                "wind_speed": 8.276900291442871,
+                "visibility": 24140,
+                "rain_propability": 3,
+                "humidity": 49
+            },
+            {
+                "hour": 12,
+                "temperature": 51.18439865112305,
+                "weather": 3,
+                "wind_speed": 7.605800151824951,
+                "visibility": 24140,
+                "rain_propability": 3,
+                "humidity": 46
+            },
+            {
+                "hour": 13,
+                "temperature": 52.174400329589844,
+                "weather": 3,
+                "wind_speed": 6.263599872589111,
+                "visibility": 24140,
+                "rain_propability": 4,
+                "humidity": 44
+            },
+            {
+                "hour": 14,
+                "temperature": 52.89440155029297,
+                "weather": 3,
+                "wind_speed": 4.7030229568481445,
+                "visibility": 24140,
+                "rain_propability": 4,
+                "humidity": 43
+            },
+            {
+                "hour": 15,
+                "temperature": 53.344398498535156,
+                "weather": 3,
+                "wind_speed": 3.362948417663574,
+                "visibility": 24140,
+                "rain_propability": 4,
+                "humidity": 42
+            },
+            {
+                "hour": 16,
+                "temperature": 53.43439865112305,
+                "weather": 3,
+                "wind_speed": 2.4708471298217773,
+                "visibility": 24140,
+                "rain_propability": 4,
+                "humidity": 42
+            },
+            {
+                "hour": 17,
+                "temperature": 53.344398498535156,
+                "weather": 3,
+                "wind_speed": 1.844677448272705,
+                "visibility": 24140,
+                "rain_propability": 4,
+                "humidity": 43
+            },
+            {
+                "hour": 18,
+                "temperature": 53.16440200805664,
+                "weather": 3,
+                "wind_speed": 2.0624120235443115,
+                "visibility": 24140,
+                "rain_propability": 4,
+                "humidity": 43
+            },
+            {
+                "hour": 19,
+                "temperature": 53.16440200805664,
+                "weather": 3,
+                "wind_speed": 3.586183786392212,
+                "visibility": 24140,
+                "rain_propability": 7,
+                "humidity": 43
+            },
+            {
+                "hour": 20,
+                "temperature": 53.16440200805664,
+                "weather": 3,
+                "wind_speed": 5.592499732971191,
+                "visibility": 24140,
+                "rain_propability": 7,
+                "humidity": 42
+            },
+            {
+                "hour": 21,
+                "temperature": 52.984397888183594,
+                "weather": 3,
+                "wind_speed": 7.382099628448486,
+                "visibility": 24140,
+                "rain_propability": 7,
+                "humidity": 41
+            },
+            {
+                "hour": 22,
+                "temperature": 52.444400787353516,
+                "weather": 3,
+                "wind_speed": 8.053199768066406,
+                "visibility": 24140,
+                "rain_propability": 7,
+                "humidity": 40
+            },
+            {
+                "hour": 23,
+                "temperature": 51.6343994140625,
+                "weather": 3,
+                "wind_speed": 8.056305885314941,
+                "visibility": 24140,
+                "rain_propability": 7,
+                "humidity": 39
+            }
+        ]
+    },
+    {
+        "date": "2024-12-03T06:00:00.000Z",
+        "forcast": [
+            {
+                "hour": 0,
+                "temperature": 51.00440216064453,
+                "weather": 3,
+                "wind_speed": 8.065618515014648,
+                "visibility": 24140,
+                "rain_propability": 7,
+                "humidity": 38
+            },
+            {
+                "hour": 1,
+                "temperature": 50.55440139770508,
+                "weather": 3,
+                "wind_speed": 7.880465507507324,
+                "visibility": 24140,
+                "rain_propability": 13,
+                "humidity": 37
+            },
+            {
+                "hour": 2,
+                "temperature": 50.194400787353516,
+                "weather": 3,
+                "wind_speed": 7.765322685241699,
+                "visibility": 24140,
+                "rain_propability": 13,
+                "humidity": 37
+            },
+            {
+                "hour": 3,
+                "temperature": 49.924400329589844,
+                "weather": 3,
+                "wind_speed": 7.37870979309082,
+                "visibility": 24140,
+                "rain_propability": 13,
+                "humidity": 37
+            },
+            {
+                "hour": 4,
+                "temperature": 49.65439987182617,
+                "weather": 3,
+                "wind_speed": 7.063395977020264,
+                "visibility": 24140,
+                "rain_propability": 13,
+                "humidity": 37
+            },
+            {
+                "hour": 5,
+                "temperature": 49.47439956665039,
+                "weather": 3,
+                "wind_speed": 6.744471549987793,
+                "visibility": 24140,
+                "rain_propability": 13,
+                "humidity": 37
+            },
+            {
+                "hour": 6,
+                "temperature": 49.20439910888672,
+                "weather": 3,
+                "wind_speed": 6.521920204162598,
+                "visibility": 24140,
+                "rain_propability": 13,
+                "humidity": 37
+            },
+            {
+                "hour": 7,
+                "temperature": 48.844398498535156,
+                "weather": 3,
+                "wind_speed": 6.514242172241211,
+                "visibility": 24140,
+                "rain_propability": 15,
+                "humidity": 38
+            },
+            {
+                "hour": 8,
+                "temperature": 48.39440155029297,
+                "weather": 3,
+                "wind_speed": 7.0207600593566895,
+                "visibility": 24140,
+                "rain_propability": 15,
+                "humidity": 39
+            },
+            {
+                "hour": 9,
+                "temperature": 48.034400939941406,
+                "weather": 3,
+                "wind_speed": 7.651717185974121,
+                "visibility": 24140,
+                "rain_propability": 15,
+                "humidity": 40
+            },
+            {
+                "hour": 10,
+                "temperature": 47.49440002441406,
+                "weather": 51,
+                "wind_speed": 7.755650043487549,
+                "visibility": 24140,
+                "rain_propability": 15,
+                "humidity": 42
+            },
+            {
+                "hour": 11,
+                "temperature": 47.04439926147461,
+                "weather": 51,
+                "wind_speed": 7.726560592651367,
+                "visibility": 24140,
+                "rain_propability": 15,
+                "humidity": 45
+            },
+            {
+                "hour": 12,
+                "temperature": 46.95439910888672,
+                "weather": 51,
+                "wind_speed": 7.81350564956665,
+                "visibility": 24140,
+                "rain_propability": 15,
+                "humidity": 46
+            },
+            {
+                "hour": 13,
+                "temperature": 47.674400329589844,
+                "weather": 3,
+                "wind_speed": 7.723321437835693,
+                "visibility": 24140,
+                "rain_propability": 14,
+                "humidity": 44
+            },
+            {
+                "hour": 14,
+                "temperature": 48.844398498535156,
+                "weather": 3,
+                "wind_speed": 7.214107990264893,
+                "visibility": 24140,
+                "rain_propability": 14,
+                "humidity": 41
+            },
+            {
+                "hour": 15,
+                "temperature": 49.56439971923828,
+                "weather": 3,
+                "wind_speed": 6.992190361022949,
+                "visibility": 24140,
+                "rain_propability": 14,
+                "humidity": 38
+            },
+            {
+                "hour": 16,
+                "temperature": 49.47439956665039,
+                "weather": 3,
+                "wind_speed": 6.992190361022949,
+                "visibility": 24140,
+                "rain_propability": 14,
+                "humidity": 37
+            },
+            {
+                "hour": 17,
+                "temperature": 48.844398498535156,
+                "weather": 3,
+                "wind_speed": 7.024322032928467,
+                "visibility": 24140,
+                "rain_propability": 14,
+                "humidity": 37
+            }
+        ]
+    }
+]
