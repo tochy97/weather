@@ -11,7 +11,8 @@ type Props = {
 
 type Forcast = {
   hour: number,
-  weather: number,
+  weather_code: number,
+  weather_condition: string | undefined,
   wind_speed: number,
   temperature: number,
   visibility: number,
@@ -22,22 +23,20 @@ type Forcast = {
 type WeatherData = {
   date: Date,
   forcasts: Array<Forcast>,
-  current_weather_condition?: string,
   max_temperature?: number,
   min_temperature?: number,
-  mode_weather_condition?: number | undefined | null,
 }
 
 type State = {
   loaded: boolean,
-  open_meteo?: any,
-  weather_data?: Array<WeatherData>
-  current_forcast?: Forcast
 }
 
 export default class Weather extends Component<Props, State> {
-  // https://api.open-meteo.com/v1/forecast?latitude=32.814&longitude=-96.9489&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,cloud_cover,visibility,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph
+
   public config: Props;
+  public weather_data: Array<WeatherData> = [];
+  public current_weather?: Forcast;  
+  private open_meteo?: any;
 
   constructor(props: Props) {
     super(props);
@@ -58,109 +57,18 @@ export default class Weather extends Component<Props, State> {
     }
   }
 
-  getLoaded () {
+  getLoaded() {
     return this.state.loaded;
   }
 
-  getOpenMeteoData () {
-    return this.state.open_meteo;
-  }
-
-  getCurrentDayForcast () {
-    if (typeof this.state.weather_data !== "undefined" && Array.isArray(this.state.weather_data) && this.state.weather_data.length !== 0) {
-      return this.state.weather_data[0];
-    }
-    return {};
-  }
-
-  getCurrentHourForcast () {
-    if (typeof this.state.weather_data !== "undefined" && Array.isArray(this.state.weather_data) && this.state.weather_data.length !== 0 && typeof this.state.weather_data[0].forcasts !== "undefined" && Array.isArray(this.state.weather_data[0].forcasts) && this.state.weather_data[0].forcasts.length !== 0) {
-      return this.state.weather_data[0].forcasts[0];
-    }
-    return {};
-  }
-
-  findModeWeather (array: Array<Forcast>) {
-    if (array.length === 0)
-      return null;
-    var mode = array[0].weather ?? 0, modeMap = [], maxCount = 1;
-    for (var i = 0; i < array.length; i++) {
-      var el = array[i].weather;
-      if (modeMap[el] === null)
-        modeMap[el] = 1;
-      else
-        modeMap[el]++;
-      if (modeMap[el] > maxCount) {
-        mode = el;
-        maxCount = modeMap[el];
-      }
-    }
-    return mode;
-  }
-
-  findMinMaxTemperature = (forcasts: Array<Forcast>) => {
-    const max = forcasts.reduce((prev, curr) => (curr.temperature > prev.temperature ? curr : prev)).temperature;
-    const min = forcasts.reduce((prev, curr) => (curr.temperature < prev.temperature ? curr : prev)).temperature;
-    return { min, max }
-  }
-
-  parseWeather = (open_meteo: any) => {
-    const today: Date = new Date();
-    let hour: number;
-
-    let weather: WeatherData;
-    let weather_array: Array<WeatherData> = [];
-    let index: number = -1;
-    for (let i = 0; i < open_meteo.time.length; i++) {
-      hour = new Date(open_meteo.time[i]).getHours();
-      if (weather_array[index]?.date.toLocaleDateString() === open_meteo.time[i].toLocaleDateString()) {
-        weather_array[index].forcasts.push({
-          hour: hour,
-          temperature: open_meteo.temperature2m[i],
-          weather: open_meteo.weatherCode[i],
-          wind_speed: open_meteo.windSpeed10m[i],
-          visibility: open_meteo.visibility[i],
-          rain_propability: open_meteo.precipitationProbability[i],
-          humidity: open_meteo.relativeHumidity2m[i]
-        })
-      }
-      else {
-        if (open_meteo.time[i] < today) {
-          continue;
-        }
-        weather = {
-          date: new Date(open_meteo.time[i].toLocaleDateString()),
-          forcasts: [
-            {
-              hour: hour,
-              temperature: open_meteo.temperature2m[i],
-              weather: open_meteo.weatherCode[i],
-              wind_speed: open_meteo.windSpeed10m[i],
-              visibility: open_meteo.visibility[i],
-              rain_propability: open_meteo.precipitationProbability[i],
-              humidity: open_meteo.relativeHumidity2m[i]
-            }
-          ]
-        }
-        weather_array.push(weather);
-        index += 1;
-      }
-    }
-
-    for (let i = 0; i < weather_array.length; i++) {
-      const { min, max } = this.findMinMaxTemperature(weather_array[i].forcasts)
-      weather_array[i].max_temperature = max;
-      weather_array[i].min_temperature = min;
-      weather_array[i].mode_weather_condition = this.findModeWeather(weather_array[i].forcasts);
-      weather_array[i].current_weather_condition = this.convertWMO(weather_array[i].mode_weather_condition);
-    }
-
-    console.log(weather_array)
-    return weather_array;
+  getOpenMeteoData() {
+    return this.open_meteo;
   }
 
   // From open-meteo documentation - https://open-meteo.com/en/docs
-  parseOpenMeteoResponse = (response: any) => {
+  setOpenMeteoResponse = async () => {
+    const response = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", this.config);
+
     const hourly = response[0].hourly()!;
     const utcOffsetSeconds = response[0].utcOffsetSeconds();
 
@@ -181,23 +89,97 @@ export default class Weather extends Component<Props, State> {
       visibility: hourly.variables(7)!.valuesArray()!,
       windSpeed10m: hourly.variables(8)!.valuesArray()!,
     };
-    return open_meteo;
+    this.open_meteo = open_meteo
   }
 
-  updateWeather = async () => {
-    const responses = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", this.config);
-    if (responses) {
-      const open_meteo = this.parseOpenMeteoResponse(responses);
-      const weather_data = this.parseWeather(open_meteo);
-      this.setState({
-        open_meteo: open_meteo,
-        weather_data: weather_data,
-        loaded: true
-      })
+  findMinMaxTemperature = (forcasts: Array<Forcast>) => {
+    const max = forcasts.reduce((prev, curr) => (curr.temperature > prev.temperature ? curr : prev)).temperature;
+    const min = forcasts.reduce((prev, curr) => (curr.temperature < prev.temperature ? curr : prev)).temperature;
+    return { min, max }
+  }
+
+  getWeatherData = () => {
+    return this.weather_data;
+  }
+
+  setWeatherData = () => {
+    let open_meteo: any = this.open_meteo;
+    const today: Date = new Date();
+    let hour: number, weather: WeatherData, weather_array: Array<WeatherData> = [], index: number = -1;
+
+    // Add forcasts for each day
+    for (let i = 0; i < open_meteo.time.length; i++) {
+      hour = new Date(open_meteo.time[i]).getHours();
+      if (weather_array[index]?.date.toLocaleDateString() === open_meteo.time[i].toLocaleDateString()) {
+        weather_array[index].forcasts.push({
+          hour: hour,
+          temperature: open_meteo.temperature2m[i],
+          weather_code: open_meteo.weatherCode[i],
+          weather_condition: this.convertWMO(open_meteo.weatherCode[i], open_meteo.precipitationProbability[i]),
+          wind_speed: open_meteo.windSpeed10m[i],
+          visibility: open_meteo.visibility[i],
+          rain_propability: open_meteo.precipitationProbability[i],
+          humidity: open_meteo.relativeHumidity2m[i],
+        })
+      }
+      else {
+        if (open_meteo.time[i] < today) {
+          continue;
+        }
+        weather = {
+          date: new Date(open_meteo.time[i].toLocaleDateString()),
+          forcasts: [
+            {
+              hour: hour,
+              temperature: open_meteo.temperature2m[i],
+              weather_code: open_meteo.weatherCode[i],
+              weather_condition: this.convertWMO(open_meteo.weatherCode[i], open_meteo.precipitationProbability[i]),
+              wind_speed: open_meteo.windSpeed10m[i],
+              visibility: open_meteo.visibility[i],
+              rain_propability: open_meteo.precipitationProbability[i],
+              humidity: open_meteo.relativeHumidity2m[i]
+            }
+          ]
+        }
+        weather_array.push(weather);
+        index += 1;
+      }
+    }
+
+    for (let i = 0; i < weather_array.length; i++) {
+      const { min, max } = this.findMinMaxTemperature(weather_array[i].forcasts)
+      weather_array[i].max_temperature = max;
+      weather_array[i].min_temperature = min;
+    }
+
+    this.weather_data = weather_array;
+  }
+
+  updateCurrentWeather = () => {
+    const current_hour: number = (new Date()).getHours() + 1;
+
+    if (typeof this.weather_data !== "undefined" && Array.isArray(this.weather_data) && this.weather_data.length !== 0) {
+      let current_forcast = this.weather_data[0].forcasts.find(ele =>
+        ele.hour === current_hour
+      )
+
+      // Set current weather
+      this.current_weather = current_forcast;
     }
   }
 
-  convertWMO = (weather_code: number | undefined | null) => {
+  updateWeather = async () => {
+    this.setOpenMeteoResponse().then(() => {
+      this.setWeatherData();
+      this.setState({
+        loaded: true
+      })
+    }).finally(() => {
+      console.log(this)
+    })
+  }
+
+  convertWMO = (weather_code: number | undefined | null, rain_propability: number | undefined | null) => {
     let output = "";
     if (typeof weather_code === "undefined" || weather_code === null) {
       return;
@@ -217,7 +199,7 @@ export default class Weather extends Component<Props, State> {
         output = "Freezing " + output;
       }
       if (weather_code > 60) {
-        output= "Heavy " + output;
+        output = "Heavy " + output;
       }
     }
     else if (weather_code > 70 && weather_code < 80) {
@@ -235,6 +217,7 @@ export default class Weather extends Component<Props, State> {
         output += " with Hail";
       }
     }
+    output += " (Rain: " + rain_propability + "%)"
     return output;
   }
 
@@ -246,6 +229,9 @@ export default class Weather extends Component<Props, State> {
     return (
       <div>Weather
         <button onClick={this.updateWeather} >click</button>
+        {
+          this.state.loaded && <>Loaded</>
+        }
       </div>
     )
   }
