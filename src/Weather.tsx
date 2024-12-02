@@ -233,6 +233,7 @@ export default class Weather extends Component<Props, State> {
           </div>
         }
         <svg
+          role='button'
           className={this.state.loaded ? "update_button" : "spin"}
           fill="currentColor"
           height="1em"
