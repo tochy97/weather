@@ -1,60 +1,61 @@
 import { Component } from 'react'
-import { fetchWeatherApi } from 'openmeteo';
+
+import './Weather.css'
 
 type Props = {
-  longitude: number,
-  latitude: number,
-  hourly: Array<string>,
-  temperature_unit: string,
+  longitude: number
+  latitude: number
+  hourly?: Array<string>
+  temperature_unit: string
   wind_speed_unit: string
 }
 
 type Forcast = {
-  hour: number,
-  weather_code: number,
-  weather_condition: string | undefined,
-  wind_speed: number,
-  temperature: number,
-  visibility: number,
-  rain_propability: number,
-  humidity: number
+  hour: number
+  weather_code: number
+  weather_condition: string | undefined
+  wind_speed: number
+  temperature: number
+  rain_propability: number
+  humidity: number,
+  wind_direction: string
 }
 
 type WeatherData = {
-  date: Date,
-  forcasts: Array<Forcast>,
-  max_temperature?: number,
-  min_temperature?: number,
+  date: Date
+  forcasts: Array<Forcast>
+  max_temperature?: number
+  min_temperature?: number
 }
 
 type State = {
-  loaded: boolean,
+  loaded: boolean
+  temperature_unit: string
 }
 
 export default class Weather extends Component<Props, State> {
 
   public config: Props;
   public weather_data: Array<WeatherData> = [];
-  public current_weather?: Forcast;  
+  public current_weather?: Forcast;
   private open_meteo?: any;
 
   constructor(props: Props) {
     super(props);
     this.state = {
       loaded: false,
+      temperature_unit: props.temperature_unit.substring(0, 1).toUpperCase(),
     }
     this.config = {
       longitude: props.longitude,
       latitude: props.latitude,
-      hourly: props.hourly,
       temperature_unit: props.temperature_unit,
       wind_speed_unit: props.wind_speed_unit,
     }
 
     // Default hourly if none are passed
-    if (typeof this.config.hourly.length === "undefined" || !Array.isArray(this.config.hourly) || this.config.hourly.length === 0) {
-      this.config.hourly = ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "precipitation_probability", "precipitation", "weather_code", "cloud_cover", "visibility", "wind_speed_10m"]
-    }
+    this.config.hourly = ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "precipitation_probability", "precipitation", "weather_code", "cloud_cover", "visibility", "wind_speed_10m"]
+    this.updateWeather();
   }
 
   getLoaded() {
@@ -67,35 +68,17 @@ export default class Weather extends Component<Props, State> {
 
   // From open-meteo documentation - https://open-meteo.com/en/docs
   setOpenMeteoResponse = async () => {
-    const response = await fetchWeatherApi("https://api.open-meteo.com/v1/forecast", this.config);
+    let url = "https://api.open-meteo.com/v1/forecast?latitude=" + this.config.latitude + "&longitude=" + this.config.longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
 
-    const hourly = response[0].hourly()!;
-    const utcOffsetSeconds = response[0].utcOffsetSeconds();
-
-    // Helper function to form time ranges
-    const range = (start: number, stop: number, step: number) =>
-      Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
-    const open_meteo = {
-      time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-        (t) => new Date((t + utcOffsetSeconds) * 1000)
-      ),
-      temperature2m: hourly.variables(0)!.valuesArray()!,
-      relativeHumidity2m: hourly.variables(1)!.valuesArray()!,
-      apparentTemperature: hourly.variables(2)!.valuesArray()!,
-      precipitationProbability: hourly.variables(3)!.valuesArray()!,
-      precipitation: hourly.variables(4)!.valuesArray()!,
-      weatherCode: hourly.variables(5)!.valuesArray()!,
-      cloudCover: hourly.variables(6)!.valuesArray()!,
-      visibility: hourly.variables(7)!.valuesArray()!,
-      windSpeed10m: hourly.variables(8)!.valuesArray()!,
-    };
-    this.open_meteo = open_meteo
-  }
-
-  findMinMaxTemperature = (forcasts: Array<Forcast>) => {
-    const max = forcasts.reduce((prev, curr) => (curr.temperature > prev.temperature ? curr : prev)).temperature;
-    const min = forcasts.reduce((prev, curr) => (curr.temperature < prev.temperature ? curr : prev)).temperature;
-    return { min, max }
+    return new Promise((resolve,reject) => {
+      fetch(url).then((response) => {
+        if (typeof response.body !== "undefined") {
+          response.json().then((body) => {
+            resolve(this.open_meteo = body.hourly);
+          })
+        }
+      })
+    })
   }
 
   getWeatherData = () => {
@@ -105,41 +88,32 @@ export default class Weather extends Component<Props, State> {
   setWeatherData = () => {
     let open_meteo: any = this.open_meteo;
     const today: Date = new Date();
-    let hour: number, weather: WeatherData, weather_array: Array<WeatherData> = [], index: number = -1;
+    let hour: number, date: Date, weather: WeatherData, weather_array: Array<WeatherData> = [], index: number = -1;
 
     // Add forcasts for each day
     for (let i = 0; i < open_meteo.time.length; i++) {
-      hour = new Date(open_meteo.time[i]).getHours();
-      if (weather_array[index]?.date.toLocaleDateString() === open_meteo.time[i].toLocaleDateString()) {
-        weather_array[index].forcasts.push({
-          hour: hour,
-          temperature: open_meteo.temperature2m[i],
-          weather_code: open_meteo.weatherCode[i],
-          weather_condition: this.convertWMO(open_meteo.weatherCode[i], open_meteo.precipitationProbability[i]),
-          wind_speed: open_meteo.windSpeed10m[i],
-          visibility: open_meteo.visibility[i],
-          rain_propability: open_meteo.precipitationProbability[i],
-          humidity: open_meteo.relativeHumidity2m[i],
-        })
+      date = new Date(open_meteo.time[i]);
+      hour = date.getHours();
+      let forcast = {
+        hour: hour,
+        temperature: Math.round(open_meteo.temperature_2m[i]),
+        weather_code: open_meteo.weather_code[i],
+        weather_condition: this.convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]),
+        wind_speed: Math.round(open_meteo.wind_speed_10m[i]),
+        rain_propability: open_meteo.precipitation_probability[i],
+        humidity: open_meteo.relative_humidity_2m[i],
+        wind_direction: this.convertWindDirection(open_meteo.wind_direction_10m[i])
+      }
+      if (weather_array[index]?.date && weather_array[index]?.date.toLocaleDateString() === date.toLocaleDateString()) {
+        weather_array[index].forcasts.push(forcast)
       }
       else {
-        if (open_meteo.time[i] < today) {
+        if (date < today) {
           continue;
         }
         weather = {
-          date: new Date(open_meteo.time[i].toLocaleDateString()),
-          forcasts: [
-            {
-              hour: hour,
-              temperature: open_meteo.temperature2m[i],
-              weather_code: open_meteo.weatherCode[i],
-              weather_condition: this.convertWMO(open_meteo.weatherCode[i], open_meteo.precipitationProbability[i]),
-              wind_speed: open_meteo.windSpeed10m[i],
-              visibility: open_meteo.visibility[i],
-              rain_propability: open_meteo.precipitationProbability[i],
-              humidity: open_meteo.relativeHumidity2m[i]
-            }
-          ]
+          date: new Date(date.toLocaleDateString()),
+          forcasts: [forcast]
         }
         weather_array.push(weather);
         index += 1;
@@ -155,6 +129,12 @@ export default class Weather extends Component<Props, State> {
     this.weather_data = weather_array;
   }
 
+  findMinMaxTemperature = (forcasts: Array<Forcast>) => {
+    const max = forcasts.reduce((prev, curr) => (curr.temperature > prev.temperature ? curr : prev)).temperature;
+    const min = forcasts.reduce((prev, curr) => (curr.temperature < prev.temperature ? curr : prev)).temperature;
+    return { min, max }
+  }
+
   updateCurrentWeather = () => {
     const current_hour: number = (new Date()).getHours() + 1;
 
@@ -166,15 +146,17 @@ export default class Weather extends Component<Props, State> {
       // Set current weather
       this.current_weather = current_forcast;
     }
+    console.log(this)
+
   }
 
   updateWeather = async () => {
     this.setOpenMeteoResponse().then(() => {
       this.setWeatherData();
+      this.updateCurrentWeather();
       this.setState({
         loaded: true
       })
-    }).finally(() => {
       console.log(this)
     })
   }
@@ -221,17 +203,52 @@ export default class Weather extends Component<Props, State> {
     return output;
   }
 
+  convertWindDirection = (angle: number): string => {
+    let directions: string[] = [
+      "N", "NNE", "NE", "ENE",
+      "E", "ESE", "SE", "SSE",
+      "S", "SSW", "SW", "WSW",
+      "W", "WNW", "NW", "NNW"
+    ]
+
+    const section: number = Math.floor(angle / 22.5 + 0.5)
+
+    return directions[section % 16]
+  }
+
   nextRainyDay = async () => {
 
   }
 
   render() {
     return (
-      <div>Weather
-        <button onClick={this.updateWeather} >click</button>
+      <div className='container'>
         {
-          this.state.loaded && <>Loaded</>
+          this.state.loaded
+          &&
+          <div className='weather'>
+              <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.state.temperature_unit} </div>
+              <div>{this.current_weather?.wind_speed + ' ' + this.config.wind_speed_unit.toUpperCase() + ' ' + this.current_weather?.wind_direction}</div>
+              <div>{this.current_weather?.weather_condition}</div>
+          </div>
         }
+        <svg
+          className={this.state.loaded ? "update_button" : "spin"}
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={this.updateCurrentWeather} 
+        >
+          <path
+            d="M1.7507,16.0022 C3.3517,20.0982 7.3367,23.0002 11.9997,23.0002 C18.0747,23.0002 22.9997,18.0752 22.9997,12.0002 M22.2497,7.9982 C20.6487,3.9012 16.6627,1.0002 11.9997,1.0002 C5.9247,1.0002 0.9997,5.9252 0.9997,12.0002 M8.9997,16.0002 L0.9997,16.0002 L0.9997,24.0002 M22.9997,0.0002 L22.9997,8.0002 L14.9997,8.0002"
+            fill="none"
+            strokeWidth="2"
+          />
+        </svg>
       </div>
     )
   }
