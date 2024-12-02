@@ -25,6 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "webpack serve --config webpack.config.dev.ts",
+    "react-build": "react-scripts build",
     "build": "webpack --config webpack.config.dev.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
