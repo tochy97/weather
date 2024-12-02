@@ -13,6 +13,6 @@ jobs:
         with:
           node-version: 20
       - run: |
-            npm install
+            npm install --legacy-peer-deps
             npx eslint src
             npm test
