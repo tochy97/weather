@@ -2,7 +2,7 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
-  "main": "src/index",
+  "main": "dist/main",
   "files": [
     "src/**/*"
   ],
@@ -16,8 +16,6 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.119",
     "@types/react-dom": "^18.3.1",
-    "openmeteo": "^1.1.4",
-    "puppeteer": "^23.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -26,8 +24,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "webpack serve --config webpack.config.dev.ts --mode development --port 5000 --stats-error-details",
-    "build": "webpack --config webpack.config.build.ts",
+    "dev": "webpack serve --config webpack.config.dev.ts",
+    "build": "webpack --config webpack.config.dev.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -53,7 +51,6 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
-    "@types/react": "^18.3.12",
     "ajv": "^8.17.1",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",

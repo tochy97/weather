@@ -4,7 +4,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 module.exports = {
   entry: {
     index: './src/index.tsx',
-    Weather: './src/Weather.tsx'
   },
   module: {
     rules: [
@@ -20,18 +19,21 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   output: {
-    filename: '[name].tsx',
-    path: path.resolve(__dirname, 'lib'),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'build'),
     clean: true
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
-      filename: 'index.html',
-      inject: false
     })
   ],
   devtool: false,

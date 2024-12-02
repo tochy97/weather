@@ -3,19 +3,18 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 module.exports = {
   entry: {
-    main: './src/index.tsx',
-    Weather: './src/Weather.tsx'
+    index: './src/index.tsx',
   },
   output: {
-    filename: '[name].tsx',
-    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'build'),
     clean: true
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(tsx)?$/,
           use: ["ts-loader"],
           exclude: /node_modules/,
         },
@@ -26,13 +25,22 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'public/index.html',
-      filename: 'index.html',
-      inject: false
+      template:  path.join(__dirname, "public", "index.html"),
     })
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "build"),
+    },
+    port: 8000,
+  },
 };
