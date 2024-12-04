@@ -1,6 +1,6 @@
 {
   "name": "@egeonu/weather",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/Weather.mjs",
   "files": [
     "lib/**/*"
@@ -21,7 +21,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "webpack serve --config webpack.config.dev.ts",
     "react-build": "react-scripts build",
     "build": "webpack --config webpack.config.build.ts",
     "test": "react-scripts test",
@@ -45,6 +44,14 @@
       "last 1 safari version"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tochy97/weather.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tochy97/weather/issues"
+  },
+  "homepage": "https://github.com/tochy97/weather#readme",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/dom": "^10.4.0",
