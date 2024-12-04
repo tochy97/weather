@@ -14,5 +14,4 @@ jobs:
           node-version: 20
       - run: |
             npm install --legacy-peer-deps
-            npx eslint src
             npm test

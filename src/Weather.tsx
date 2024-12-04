@@ -146,8 +146,6 @@ export default class Weather extends Component<Props, State> {
       // Set current weather
       this.current_weather = current_forcast;
     }
-    console.log(this)
-
   }
 
   updateWeather = async () => {
@@ -157,7 +155,6 @@ export default class Weather extends Component<Props, State> {
       this.setState({
         loaded: true
       })
-      console.log(this)
     })
   }
 

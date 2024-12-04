@@ -1,16 +1,16 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 module.exports = {
   entry: {
-    index: './src/index.tsx',
+    Weather: './src/Weather.tsx',
   },
+  mode: "production",
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)?$/,
+        test: /\.tsx?$/i,
         use: ["ts-loader"],
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /test/],
       },
       {
         test: /\.(css)?$/,
@@ -22,19 +22,20 @@ module.exports = {
     extensions: ['.js', '.ts', '.tsx'],
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].mjs',
     path: path.resolve(__dirname, 'lib'),
+    library: {
+      type: "module",
+    },
     clean: true
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
+  experiments: {
+      outputModule: true
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
-    })
-  ],
+  plugins: [],
   devtool: false,
+  externals: {
+    react: 'react',
+    'react-dom': 'react-dom',
+  },
 };
