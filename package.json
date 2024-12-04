@@ -1,6 +1,6 @@
 {
   "name": "@egeonu/weather",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/Weather.mjs",
   "type": "module",
   "dependencies": {
