@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <Weather longitude={-97.028336} latitude={32.679420} temperature_unit='fahrenheit' wind_speed_unit='mph'/>
+    <Weather longitude={-97.028336} latitude={32.679420} temperature_unit='f' wind_speed_unit='mph'/>
 );
 ```
 

@@ -85,6 +85,10 @@ export default class Weather extends Component<Props, State> {
     return this.weather_data;
   }
 
+  convertToFehrenheit = (degree: number) => {
+    return Math.round(degree * (9/5) + 32);
+  }
+
   setWeatherData = () => {
     let open_meteo: any = this.open_meteo;
     const today: Date = new Date();
@@ -96,7 +100,7 @@ export default class Weather extends Component<Props, State> {
       hour = date.getHours();
       let forcast = {
         hour: hour,
-        temperature: Math.round(open_meteo.temperature_2m[i]),
+        temperature: this.config.temperature_unit === "f" ? this.convertToFehrenheit(open_meteo.temperature_2m[i]) : Math.round(open_meteo.temperature_2m[i]),
         weather_code: open_meteo.weather_code[i],
         weather_condition: this.convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]),
         wind_speed: Math.round(open_meteo.wind_speed_10m[i]),
@@ -149,6 +153,9 @@ export default class Weather extends Component<Props, State> {
   }
 
   updateWeather = async () => {
+    this.setState({
+      loaded: false
+    })
     this.setOpenMeteoResponse().then(() => {
       this.setWeatherData();
       this.updateCurrentWeather();
@@ -202,10 +209,10 @@ export default class Weather extends Component<Props, State> {
 
   convertWindDirection = (angle: number): string => {
     let directions: string[] = [
-      "N", "NNE", "NE", "ENE",
-      "E", "ESE", "SE", "SSE",
-      "S", "SSW", "SW", "WSW",
-      "W", "WNW", "NW", "NNW"
+      "N", "NE", "NE", "NE",
+      "E", "SE", "SE", "SE",
+      "S", "SW", "SW", "SW",
+      "W", "NW", "NW", "NW"
     ]
 
     const section: number = Math.floor(angle / 22.5 + 0.5)
