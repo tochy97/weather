@@ -1,6 +1,6 @@
 # Weather
 
-Weather is a node app utilizing open-meteo wriiten in typescript built down to es5.
+Weather is a react app utilizing open-meteo wriiten in typescript built down to es5.
 
 ## Installation
 
@@ -23,6 +23,8 @@ root.render(
     <Weather longitude={-97.028336} latitude={32.679420} temperature_unit='f' wind_speed_unit='mph'/>
 );
 ```
+## Example
+![alt text](./example.png "Example")
 
 ## Contributing
 
