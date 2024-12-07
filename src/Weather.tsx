@@ -44,7 +44,7 @@ export default class Weather extends Component<Props, State> {
     super(props);
     this.state = {
       loaded: false,
-      temperature_unit: props.temperature_unit.substring(0, 1).toUpperCase(),
+      temperature_unit: props.temperature_unit,
     }
     this.config = {
       longitude: props.longitude,
@@ -86,7 +86,7 @@ export default class Weather extends Component<Props, State> {
   }
 
   convertToFehrenheit = (degree: number) => {
-    return degree * (9/5) + 32;
+    return Math.round(degree * (9/5) + 32);
   }
 
   setWeatherData = () => {
@@ -98,12 +98,9 @@ export default class Weather extends Component<Props, State> {
     for (let i = 0; i < open_meteo.time.length; i++) {
       date = new Date(open_meteo.time[i]);
       hour = date.getHours();
-      if (this.state.temperature_unit === "F") {
-        open_meteo.temperature_2m[i] = this.convertToFehrenheit(open_meteo.temperature_2m[i]);
-      }
       let forcast = {
         hour: hour,
-        temperature: Math.round(open_meteo.temperature_2m[i]),
+        temperature: this.state.temperature_unit === "f" ? this.convertToFehrenheit(open_meteo.temperature_2m[i]) : Math.round(open_meteo.temperature_2m[i]),
         weather_code: open_meteo.weather_code[i],
         weather_condition: this.convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]),
         wind_speed: Math.round(open_meteo.wind_speed_10m[i]),
@@ -234,7 +231,7 @@ export default class Weather extends Component<Props, State> {
           this.state.loaded
           &&
           <div className='weather'>
-              <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.state.temperature_unit} </div>
+              <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.state.temperature_unit.toUpperCase()} </div>
               <div>{this.current_weather?.wind_speed + ' ' + this.config.wind_speed_unit.toUpperCase() + ' ' + this.current_weather?.wind_direction}</div>
               <div>{this.current_weather?.weather_condition}</div>
           </div>
