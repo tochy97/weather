@@ -86,7 +86,7 @@ export default class Weather extends Component<Props, State> {
   }
 
   convertToFehrenheit = (degree: number) => {
-    return Math.round(degree * (9/5) + 32);
+    return degree * (9/5) + 32;
   }
 
   setWeatherData = () => {
@@ -98,9 +98,12 @@ export default class Weather extends Component<Props, State> {
     for (let i = 0; i < open_meteo.time.length; i++) {
       date = new Date(open_meteo.time[i]);
       hour = date.getHours();
+      if (this.state.temperature_unit === "f") {
+        open_meteo.temperature_2m[i] = this.convertToFehrenheit(open_meteo.temperature_2m[i]);
+      }
       let forcast = {
         hour: hour,
-        temperature: this.config.temperature_unit === "f" ? this.convertToFehrenheit(open_meteo.temperature_2m[i]) : Math.round(open_meteo.temperature_2m[i]),
+        temperature: Math.round(open_meteo.temperature_2m[i]),
         weather_code: open_meteo.weather_code[i],
         weather_condition: this.convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]),
         wind_speed: Math.round(open_meteo.wind_speed_10m[i]),
@@ -246,7 +249,7 @@ export default class Weather extends Component<Props, State> {
           viewBox="0 0 24 24"
           width="1em"
           xmlns="http://www.w3.org/2000/svg"
-          onClick={this.updateCurrentWeather} 
+          onClick={this.updateWeather} 
         >
           <path
             d="M1.7507,16.0022 C3.3517,20.0982 7.3367,23.0002 11.9997,23.0002 C18.0747,23.0002 22.9997,18.0752 22.9997,12.0002 M22.2497,7.9982 C20.6487,3.9012 16.6627,1.0002 11.9997,1.0002 C5.9247,1.0002 0.9997,5.9252 0.9997,12.0002 M8.9997,16.0002 L0.9997,16.0002 L0.9997,24.0002 M22.9997,0.0002 L22.9997,8.0002 L14.9997,8.0002"
