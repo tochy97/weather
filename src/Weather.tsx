@@ -98,7 +98,7 @@ export default class Weather extends Component<Props, State> {
     for (let i = 0; i < open_meteo.time.length; i++) {
       date = new Date(open_meteo.time[i]);
       hour = date.getHours();
-      if (this.state.temperature_unit === "f") {
+      if (this.state.temperature_unit === "F") {
         open_meteo.temperature_2m[i] = this.convertToFehrenheit(open_meteo.temperature_2m[i]);
       }
       let forcast = {
