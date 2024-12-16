@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
-
 import './Weather.css'
 
 type Props = {
   longitude: number
   latitude: number
-  hourly?: Array<string>
   temperature_unit: string
   wind_speed_unit: string
+  loaded?: boolean
 }
 
 type Forcast = {
@@ -28,38 +26,40 @@ type WeatherData = {
   min_temperature?: number
 }
 
-type State = {
-  loaded: boolean
-  temperature_unit: string
-}
-
-export default class Weather extends Component<Props, State> {
-
-  public config: Props;
-  public weather_data: Array<WeatherData> = [];
+export default class Weather {
+  public config?: Props;
+  public weather_data?: Array<WeatherData>;
   public current_weather?: Forcast;
-  private open_meteo?: any;
+  public open_meteo?: any;
 
   constructor(props: Props) {
-    super(props);
-    this.state = {
+    const self = this;
+    self.config = {
       loaded: false,
-      temperature_unit: props.temperature_unit,
-    }
-    this.config = {
       longitude: props.longitude,
       latitude: props.latitude,
       temperature_unit: props.temperature_unit,
       wind_speed_unit: props.wind_speed_unit,
     }
+    return ((self) => ({
+      config: self.config,
+      getLoaded: self.getLoaded.bind(self),
+      getOpenMeteoData: self.getOpenMeteoData.bind(self),
+      setOpenMeteoResponse: self.setOpenMeteoResponse.bind(self),
+      getWeatherData: self.getWeatherData.bind(self),
+      convertToFehrenheit: self.convertToFehrenheit.bind(self),
+      setWeatherData: self.setWeatherData.bind(self),
+      findMinMaxTemperature: self.findMinMaxTemperature.bind(self),
+      updateCurrentWeather: self.updateCurrentWeather.bind(self),
+      updateWeather: self.updateWeather.bind(self),
+      convertWMO: self.convertWMO.bind(self),
+      convertWindDirection: self.convertWindDirection.bind(self),
+    }))(self)
 
-    // Default hourly if none are passed
-    this.config.hourly = ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "precipitation_probability", "precipitation", "weather_code", "cloud_cover", "visibility", "wind_speed_10m"]
-    this.updateWeather();
   }
 
   getLoaded() {
-    return this.state.loaded;
+    return this.config.loaded;
   }
 
   getOpenMeteoData() {
@@ -70,15 +70,11 @@ export default class Weather extends Component<Props, State> {
   setOpenMeteoResponse = async () => {
     let url = "https://api.open-meteo.com/v1/forecast?latitude=" + this.config.latitude + "&longitude=" + this.config.longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
 
-    return new Promise((resolve,reject) => {
-      fetch(url).then((response) => {
-        if (typeof response.body !== "undefined") {
-          response.json().then((body) => {
-            resolve(this.open_meteo = body.hourly);
-          })
-        }
-      })
-    })
+    const response = await fetch(url);
+    const body = await response.json();
+    this.open_meteo = body.hourly;
+    return true;
+
   }
 
   getWeatherData = () => {
@@ -86,7 +82,7 @@ export default class Weather extends Component<Props, State> {
   }
 
   convertToFehrenheit = (degree: number) => {
-    return Math.round(degree * (9/5) + 32);
+    return Math.round(degree * (9 / 5) + 32);
   }
 
   setWeatherData = () => {
@@ -100,7 +96,7 @@ export default class Weather extends Component<Props, State> {
       hour = date.getHours();
       let forcast = {
         hour: hour,
-        temperature: this.state.temperature_unit === "f" ? this.convertToFehrenheit(open_meteo.temperature_2m[i]) : Math.round(open_meteo.temperature_2m[i]),
+        temperature: this.config.temperature_unit === "f" ? this.convertToFehrenheit(open_meteo.temperature_2m[i]) : Math.round(open_meteo.temperature_2m[i]),
         weather_code: open_meteo.weather_code[i],
         weather_condition: this.convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]),
         wind_speed: Math.round(open_meteo.wind_speed_10m[i]),
@@ -153,16 +149,12 @@ export default class Weather extends Component<Props, State> {
   }
 
   updateWeather = async () => {
-    this.setState({
-      loaded: false
-    })
-    this.setOpenMeteoResponse().then(() => {
-      this.setWeatherData();
-      this.updateCurrentWeather();
-      this.setState({
-        loaded: true
-      })
-    })
+    this.config.loaded = false;
+    await this.setOpenMeteoResponse()
+    this.setWeatherData();
+    this.updateCurrentWeather();
+    this.config.loaded = true;
+    return;
   }
 
   convertWMO = (weather_code: number | undefined | null, rain_propability: number | undefined | null) => {
@@ -220,41 +212,8 @@ export default class Weather extends Component<Props, State> {
     return directions[section % 16]
   }
 
-  nextRainyDay = async () => {
+  // nextRainyDay = async () => {
 
-  }
+  // }
 
-  render() {
-    return (
-      <div className='container'>
-        {
-          this.state.loaded
-          &&
-          <div className='weather'>
-              <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.state.temperature_unit.toUpperCase()} </div>
-              <div>{this.current_weather?.wind_speed + ' ' + this.config.wind_speed_unit.toUpperCase() + ' ' + this.current_weather?.wind_direction}</div>
-              <div>{this.current_weather?.weather_condition}</div>
-          </div>
-        }
-        <svg
-          role='button'
-          className={this.state.loaded ? "update_button" : "spin"}
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          strokeWidth="0"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={this.updateWeather} 
-        >
-          <path
-            d="M1.7507,16.0022 C3.3517,20.0982 7.3367,23.0002 11.9997,23.0002 C18.0747,23.0002 22.9997,18.0752 22.9997,12.0002 M22.2497,7.9982 C20.6487,3.9012 16.6627,1.0002 11.9997,1.0002 C5.9247,1.0002 0.9997,5.9252 0.9997,12.0002 M8.9997,16.0002 L0.9997,16.0002 L0.9997,24.0002 M22.9997,0.0002 L22.9997,8.0002 L14.9997,8.0002"
-            fill="none"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-    )
-  }
 }
