@@ -24,6 +24,7 @@ module.exports = {
   output: {
     filename: '[name].mjs',
     path: path.resolve(__dirname, 'lib'),
+    chunkFormat: "module",
     library: {
       type: "module",
     },
@@ -31,6 +32,11 @@ module.exports = {
   },
   experiments: {
       outputModule: true
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   plugins: [],
   devtool: false,

@@ -23,6 +23,7 @@
     "start": "react-scripts start",
     "react-build": "react-scripts build",
     "build": "webpack --config webpack.config.build.ts",
+    "dev": "webpack serve --config webpack.config.dev.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -53,10 +54,13 @@
   },
   "homepage": "https://github.com/tochy97/weather#readme",
   "devDependencies": {
+    "@babel/core": "^7.26.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.26.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
     "ajv": "^8.17.1",
+    "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
     "globals": "^15.13.0",
     "html-webpack-plugin": "^5.6.3",
@@ -64,7 +68,7 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.17.0",
-    "webpack": "^5.96.1",
+    "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4"
   }
 }
