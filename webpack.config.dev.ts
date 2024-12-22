@@ -9,14 +9,7 @@ module.exports = {
   output: {
     filename: '[name].mjs',
     path: path.resolve(__dirname, 'lib'),
-    chunkFormat: "module",
-    library: {
-      type: "module",
-    },
     clean: true
-  },
-  experiments: {
-    outputModule: true
   },
   devtool: 'inline-source-map',
   module: {
