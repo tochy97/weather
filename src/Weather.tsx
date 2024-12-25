@@ -234,7 +234,7 @@ export default class Weather extends Component<Props, State> {
           &&
           <div className='weather'>
               <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.config.temperature_unit.toUpperCase()} </div>
-              <div>{this.current_weather?.wind_speed + ' ' + this.config.wind_speed_unit.toUpperCase() + ' ' + this.current_weather?.wind_direction}</div>
+              <div>Wind: {this.current_weather?.wind_speed + ' ' + this.config.wind_speed_unit.toUpperCase() + ' ' + this.current_weather?.wind_direction}</div>
               <div>{this.current_weather?.weather_condition}</div>
           </div>
         }
