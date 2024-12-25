@@ -1,4 +1,3 @@
-import WeatherUI from "./WeatherUI";
+import Weather from "./Weather";
 
-export default WeatherUI
-export { default as Weather } from "./Weather"; 
+export default Weather

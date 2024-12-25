@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react';
 // import Weather, {WeatherUI} from "../index"
-import WeatherUI, {Weather} from "../../lib/Weather.mjs"
+import Weather  from "../"
 
 it('Weather: Get Open-Meteo', async () => {
     const weather = new Weather({longitude:-97.028336, latitude:32.679420, temperature_unit:'f', wind_speed_unit:'mph'});
@@ -15,5 +15,5 @@ it('Weather: Get Open-Meteo', async () => {
 });
 
 it('WeatherUI: render test', () => {
-    render(<WeatherUI longitude={0} latitude={0} temperature_unit={'f'} wind_speed_unit={'mph'} />);
+    render(<Weather longitude={0} latitude={0} temperature_unit={'f'} wind_speed_unit={'mph'} />);
 });

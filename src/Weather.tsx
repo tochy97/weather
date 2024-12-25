@@ -1,11 +1,13 @@
+import React, { Component } from 'react'
+
 import './Weather.css'
 
 type Props = {
   longitude: number
   latitude: number
+  hourly?: Array<string>
   temperature_unit: string
   wind_speed_unit: string
-  loaded?: boolean
 }
 
 type Forcast = {
@@ -26,40 +28,34 @@ type WeatherData = {
   min_temperature?: number
 }
 
-export default class Weather {
-  public config?: Props;
-  public weather_data?: Array<WeatherData>;
+type State = {
+  loaded: boolean
+}
+
+export default class Weather extends Component<Props, State> {
+  public state: State;
+  public config: Props;
+  public weather_data: Array<WeatherData>;
   public current_weather?: Forcast;
-  public open_meteo?: any;
+  private open_meteo?: any;
 
   constructor(props: Props) {
-    const self = this;
-    self.config = {
+    super(props);
+    this.state = {
       loaded: false,
+    }
+    this.config = {
       longitude: props.longitude,
       latitude: props.latitude,
-      temperature_unit: props.temperature_unit,
+      temperature_unit: props.temperature_unit.substring(0, 1),
       wind_speed_unit: props.wind_speed_unit,
     }
-    return ((self) => ({
-      config: self.config,
-      getLoaded: self.getLoaded.bind(self),
-      getOpenMeteoData: self.getOpenMeteoData.bind(self),
-      setOpenMeteoResponse: self.setOpenMeteoResponse.bind(self),
-      getWeatherData: self.getWeatherData.bind(self),
-      convertToFehrenheit: self.convertToFehrenheit.bind(self),
-      setWeatherData: self.setWeatherData.bind(self),
-      findMinMaxTemperature: self.findMinMaxTemperature.bind(self),
-      updateCurrentWeather: self.updateCurrentWeather.bind(self),
-      updateWeather: self.updateWeather.bind(self),
-      convertWMO: self.convertWMO.bind(self),
-      convertWindDirection: self.convertWindDirection.bind(self),
-    }))(self)
 
+    this.updateWeather();
   }
 
   getLoaded() {
-    return this.config.loaded;
+    return this.state.loaded;
   }
 
   getOpenMeteoData() {
@@ -70,11 +66,15 @@ export default class Weather {
   setOpenMeteoResponse = async () => {
     let url = "https://api.open-meteo.com/v1/forecast?latitude=" + this.config.latitude + "&longitude=" + this.config.longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
 
-    const response = await fetch(url);
-    const body = await response.json();
-    this.open_meteo = body.hourly;
-    return true;
-
+    return new Promise((resolve,reject) => {
+      fetch(url).then((response) => {
+        if (typeof response.body !== "undefined") {
+          response.json().then((body) => {
+            resolve(this.open_meteo = body.hourly);
+          })
+        }
+      })
+    })
   }
 
   getWeatherData = () => {
@@ -136,6 +136,9 @@ export default class Weather {
   }
 
   updateCurrentWeather = () => {
+    this.setState({
+      loaded: false
+    })
     const current_hour: number = (new Date()).getHours() + 1;
 
     if (typeof this.weather_data !== "undefined" && Array.isArray(this.weather_data) && this.weather_data.length !== 0) {
@@ -146,15 +149,22 @@ export default class Weather {
       // Set current weather
       this.current_weather = current_forcast;
     }
+    const callback = () => {
+      this.setState({
+        loaded: true
+      })
+    }
+    setTimeout(callback, 2000);
   }
 
   updateWeather = async () => {
-    this.config.loaded = false;
-    await this.setOpenMeteoResponse()
-    this.setWeatherData();
-    this.updateCurrentWeather();
-    this.config.loaded = true;
-    return;
+    this.setOpenMeteoResponse().then(() => {
+      this.setWeatherData();
+      this.updateCurrentWeather();
+      this.setState({
+        loaded: true
+      })
+    })
   }
 
   convertWMO = (weather_code: number | undefined | null, rain_propability: number | undefined | null) => {
@@ -201,10 +211,10 @@ export default class Weather {
 
   convertWindDirection = (angle: number): string => {
     let directions: string[] = [
-      "N", "NE", "NE", "NE",
-      "E", "SE", "SE", "SE",
-      "S", "SW", "SW", "SW",
-      "W", "NW", "NW", "NW"
+      "N", "NNE", "NE", "ENE",
+      "E", "ESE", "SE", "SSE",
+      "S", "SSW", "SW", "WSW",
+      "W", "WNW", "NW", "NNW"
     ]
 
     const section: number = Math.floor(angle / 22.5 + 0.5)
@@ -212,8 +222,40 @@ export default class Weather {
     return directions[section % 16]
   }
 
-  // nextRainyDay = async () => {
+  nextRainyDay = async () => {
 
-  // }
+  }
 
+  render() {
+    return (
+      <div className='container'>
+        {
+          this.state.loaded
+          &&
+          <div className='weather'>
+              <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.config.temperature_unit.toUpperCase()} </div>
+              <div>{this.current_weather?.wind_speed + ' ' + this.config.wind_speed_unit.toUpperCase() + ' ' + this.current_weather?.wind_direction}</div>
+              <div>{this.current_weather?.weather_condition}</div>
+          </div>
+        }
+        <svg
+          className={this.state.loaded ? "update_button" : "spin"}
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={this.updateCurrentWeather} 
+        >
+          <path
+            d="M1.7507,16.0022 C3.3517,20.0982 7.3367,23.0002 11.9997,23.0002 C18.0747,23.0002 22.9997,18.0752 22.9997,12.0002 M22.2497,7.9982 C20.6487,3.9012 16.6627,1.0002 11.9997,1.0002 C5.9247,1.0002 0.9997,5.9252 0.9997,12.0002 M8.9997,16.0002 L0.9997,16.0002 L0.9997,24.0002 M22.9997,0.0002 L22.9997,8.0002 L14.9997,8.0002"
+            fill="none"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+    )
+  }
 }
