@@ -12,7 +12,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: |
-            npm install --legacy-peer-deps
-            npm run build
-            npm test
+      - run: npm install --legacy-peer-deps
+      - run: npm run build
+      - run: npm test
