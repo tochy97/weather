@@ -48,3 +48,5 @@ Please make sure to update tests as appropriate.
 
 1. Pagnated week forcast
 2. Weather predictions
+3. Language conversion
+4. UI settings
