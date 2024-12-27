@@ -10,25 +10,18 @@ npm install @egeonu/weather
 
 ## Usage
 
-### Weather
+### OpenMeteo
 ```javascript
 import React from 'react'
 import ReactDOM from 'react-dom/client';
-import Weather from '@egeonu/weather';
+import { GetWeatherOpenMeteo } from '@egeonu/weather';
 
-  const weather = new Weather({longitude:-97.028336, latitude:32.679420, temperature_unit:'f', wind_speed_unit:'mph'})
-
-  // Check if it is done loading
-  weather.getLoaded();
-
-  // Get raw open-meteo weather data
-  weather.getOpenMeteoData();
-  
-  // Get data timeline format weather data
-  weather.getWeatherData();
+  const weather = await GetWeatherOpenMeteo(32.679420,-97.028336,'f');
+  console.log(weather);
 ```
+[Example Output](weather-array.json)
 
-### WeatherUI
+### Weather
 ```javascript
 import React from 'react'
 import ReactDOM from 'react-dom/client';
@@ -38,11 +31,11 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-root.render(
+root.Weather(
     <WeatherUI longitude={-97.028336} latitude={32.679420} temperature_unit='f' wind_speed_unit='mph'/>
 );
 ```
-#### Output
+#### Example Output
 ![alt text](./example.png "Example")
 
 ## Contributing
@@ -50,3 +43,8 @@ Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## To-Do
+
+1. Pagnated week forcast
+2. Weather predictions
