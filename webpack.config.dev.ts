@@ -1,4 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path, { dirname } from 'path';
 
 export default {
   entry: {
@@ -7,7 +8,7 @@ export default {
   mode: "development",
   output: {
     filename: '[name].mjs',
-    path: "/lib",
+    path: path.resolve(__dirname, 'lib'),
     clean: true
   },
   devtool: 'inline-source-map',
@@ -34,7 +35,7 @@ export default {
   ],
   devServer: {
     static: {
-      directory: "/lib",
+      directory: path.resolve(__dirname, 'lib'),
     },
     port: 8000,
   },

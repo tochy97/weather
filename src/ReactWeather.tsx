@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './Weather.css'
 import { Config, Forcast, WeatherData } from './types';
-import { GetWeatherOpenMeteo } from './OpenMeteo';
+import { getWeatherOpenMeteo } from './OpenMeteo';
 
 type Props = Config;
 
@@ -10,7 +10,7 @@ type State = {
   config: Config
   loaded: boolean
 }
-export default class Weather extends Component<Props, State> {
+export default class ReactWeather extends Component<Props, State> {
   public state: State;
   public weather_data: Array<WeatherData>;
   public current_weather?: Forcast;
@@ -31,7 +31,7 @@ export default class Weather extends Component<Props, State> {
     this.setState({
       loaded: false
     })
-    const weather = await GetWeatherOpenMeteo(this.state.config.latitude, this.state.config.longitude, this.state.config.temperature_unit);
+    const weather = await getWeatherOpenMeteo(this.state.config.latitude, this.state.config.longitude, this.state.config.temperature_unit);
     if (weather.error === undefined) {
       this.weather_data = weather.body;
       this.updateCurrentWeather();

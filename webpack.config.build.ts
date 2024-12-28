@@ -1,3 +1,5 @@
+import path, { dirname } from 'path';
+
 export default {
   entry: {
     Weather: './src/index.ts',
@@ -21,7 +23,7 @@ export default {
   },
   output: {
     filename: '[name].mjs',
-    path: "lib",
+    path: path.resolve(__dirname, 'lib'),
     chunkFormat: "module",
     library: {
       type: "module",

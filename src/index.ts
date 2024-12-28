@@ -1,4 +1,4 @@
-import Weather from "./Weather";
+import ReactWeather from "./ReactWeather";
 
-export default Weather
-export { GetWeatherOpenMeteo } from "./OpenMeteo";
+export default ReactWeather
+export { getWeatherOpenMeteo } from "./OpenMeteo";

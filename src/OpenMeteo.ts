@@ -61,7 +61,7 @@ const findMinMaxTemperature = (forcasts: Array<Forcast>) => {
   return { min, max }
 }
 
-export const GetWeatherOpenMeteo = async (latitude: number, longitude: number, temperature_unit: string) => {
+export const getWeatherOpenMeteo = async (latitude: number, longitude: number, temperature_unit: string) => {
   let url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
   const today: Date = new Date();
   let hour: number, date: Date, weather: WeatherData, weather_array: Array<WeatherData> = [], index: number = -1;
