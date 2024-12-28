@@ -1,14 +1,13 @@
-import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-module.exports = {
+export default {
   entry: {
     index: './src/test/view.tsx',
   },
   mode: "development",
   output: {
     filename: '[name].mjs',
-    path: path.resolve(__dirname, 'lib'),
+    path: "/lib",
     clean: true
   },
   devtool: 'inline-source-map',
@@ -35,7 +34,7 @@ module.exports = {
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, "build"),
+      directory: "/lib",
     },
     port: 8000,
   },
