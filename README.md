@@ -10,13 +10,13 @@ npm install @egeonu/weather
 
 ## Usage
 
-### OpenMeteo
+### getWeatherOpenMeteo
 ```javascript
 import React from 'react'
 import ReactDOM from 'react-dom/client';
-import { GetWeatherOpenMeteo } from '@egeonu/weather';
+import { getWeatherOpenMeteo } from '@egeonu/weather';
 
-  const weather = await GetWeatherOpenMeteo(32.679420,-97.028336,'f');
+  const weather = await getWeatherOpenMeteo(32.679420,-97.028336,'f');
   console.log(weather);
 ```
 [Example Output](weather-array.json)
@@ -44,9 +44,3 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## To-Do
-
-1. Pagnated week forcast
-2. Weather predictions
-3. Language conversion
-4. UI settings
