@@ -1,15 +1,10 @@
 # Weather
-
-Weather is a react app utilizing open-meteo wriiten in typescript built down to es5.
-
+A react component utilizing open-meteo. It also includes a function for retrieving open-meteo data restructured to be more user friendly.
 ## Installation
-
 ```bash
 npm install @egeonu/weather
 ```
-
 ## Usage
-
 ### getWeatherOpenMeteo
 ```javascript
 import React from 'react'
@@ -20,7 +15,6 @@ import { getWeatherOpenMeteo } from '@egeonu/weather';
   console.log(weather);
 ```
 [Example Output](weather-array.json)
-
 ### Weather
 ```javascript
 import React from 'react'
@@ -37,10 +31,8 @@ root.Weather(
 ```
 #### Example Output
 ![alt text](./example.png "Example")
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
-
 Please make sure to update tests as appropriate.
 
