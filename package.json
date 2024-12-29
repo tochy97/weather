@@ -1,6 +1,6 @@
 {
   "name": "@egeonu/weather",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "main": "lib/Weather.mjs",
   "files": [
     "lib/**/*"
@@ -70,5 +70,10 @@
     "typescript-eslint": "^8.17.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "keywords": [
+    "react",
+    "weather-ui",
+    "open-meteo"
+  ]
 }
