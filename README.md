@@ -15,18 +15,18 @@ import { getWeatherOpenMeteo } from '@egeonu/weather';
   console.log(weather);
 ```
 [Example Output](weather-array.json)
-### Weather
+### ReactWeather
 ```javascript
 import React from 'react'
 import ReactDOM from 'react-dom/client';
-import WeatherUI from '@egeonu/weather';
+import ReactWeather from '@egeonu/weather';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.Weather(
-    <WeatherUI longitude={-97.028336} latitude={32.679420} temperature_unit='f' wind_speed_unit='mph'/>
+    <ReactWeather longitude={-97.028336} latitude={32.679420} temperature_unit='f' wind_speed_unit='mph'/>
 );
 ```
 #### Example Output

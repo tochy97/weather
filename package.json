@@ -1,6 +1,6 @@
 {
   "name": "@egeonu/weather",
-  "version": "2.2.4",
+  "version": "2.2.6",
   "main": "lib/Weather.mjs",
   "files": [
     "lib/**/*"
