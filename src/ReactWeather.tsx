@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import './Weather.css'
-import { Config, Forcast, WeatherData } from './types';
+import { Config, WeatherData } from './types';
 import { getWeatherOpenMeteo } from './OpenMeteo';
 
 type Props = Config;
@@ -13,7 +13,7 @@ type State = {
 export default class ReactWeather extends Component<Props, State> {
   public state: State;
   public weather_data: Array<WeatherData>;
-  public current_weather?: Forcast;
+  public current_weather?: any;
 
   constructor(props: Props) {
     super(props);
@@ -26,12 +26,14 @@ export default class ReactWeather extends Component<Props, State> {
     this.updateWeatherData = this.updateWeatherData.bind(this);
     this.updateCurrentWeather = this.updateCurrentWeather.bind(this);
     this.updateWeatherData();
-}
+  }
   updateWeatherData = async () => {
     this.setState({
       loaded: false
     })
-    const weather = await getWeatherOpenMeteo(this.state.config.latitude, this.state.config.longitude, this.state.config.temperature_unit);
+    let url = "https://api.open-meteo.com/v1/forecast?latitude=" + this.state.config.latitude + "&longitude=" + this.state.config.longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
+
+    const weather = await getWeatherOpenMeteo(url,this.state.config.temperature_unit);
     if (weather.error === undefined) {
       this.weather_data = weather.body;
       this.updateCurrentWeather();

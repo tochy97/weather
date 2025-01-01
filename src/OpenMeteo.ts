@@ -1,4 +1,4 @@
-import { Forcast, WeatherData, } from "./types"
+import { WeatherData, } from "./types"
 
 const convertWMO = (weather_code: number | undefined | null, rain_propability: number | undefined | null) => {
   let output = "";
@@ -55,14 +55,13 @@ const convertWindDirection = (angle: number): string => {
   return directions[section % 16]
 }
 
-const findMinMaxTemperature = (forcasts: Array<Forcast>) => {
+const findMinMaxTemperature = (forcasts: Array<any>) => {
   const max = forcasts.reduce((prev, curr) => (curr.temperature > prev.temperature ? curr : prev)).temperature;
   const min = forcasts.reduce((prev, curr) => (curr.temperature < prev.temperature ? curr : prev)).temperature;
   return { min, max }
 }
 
-export const getWeatherOpenMeteo = async (latitude: number, longitude: number, temperature_unit: string) => {
-  let url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
+export const getWeatherOpenMeteo = async (url: string, temperature_unit: string) => {
   const today: Date = new Date();
   let hour: number, date: Date, weather: WeatherData, weather_array: Array<WeatherData> = [], index: number = -1;
   const response = await fetch(url);
@@ -78,15 +77,30 @@ export const getWeatherOpenMeteo = async (latitude: number, longitude: number, t
   for (let i = 0; i < open_meteo?.time.length; i++) {
     date = new Date(open_meteo.time[i]);
     hour = date.getHours();
-    let forcast = {
-      hour: hour,
-      temperature: temperature_unit === "f" ? Math.round(open_meteo.temperature_2m[i] * (9 / 5) + 32) : Math.round(open_meteo.temperature_2m[i]),
-      weather_code: open_meteo.weather_code[i],
-      weather_condition: convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]),
-      wind_speed: Math.round(open_meteo.wind_speed_10m[i]),
-      rain_propability: open_meteo.precipitation_probability[i],
-      humidity: open_meteo.relative_humidity_2m[i],
-      wind_direction: convertWindDirection(open_meteo.wind_direction_10m[i])
+    const forcast: any = {};
+    for (const key in open_meteo) {
+      forcast.hour = hour;
+      switch (key) {
+        case "temperature_2m":
+          forcast.temperature = temperature_unit === "f" ? Math.round(open_meteo.temperature_2m[i] * (9 / 5) + 32) : Math.round(open_meteo.temperature_2m[i]);
+          break;
+        case "weather_code":
+          forcast.weather_code = open_meteo.weather_code[i];
+          forcast.weather_condition = convertWMO(open_meteo.weather_code[i], open_meteo.precipitation_probability[i]);
+          break;
+        case "precipitation_probability":
+          forcast.rain_propability = open_meteo.precipitation_probability[i];
+          break;
+        case "wind_speed_10m":
+          forcast.wind_speed = Math.round(open_meteo.wind_speed_10m[i]);
+          break;
+        case "wind_direction_10m":
+          forcast.wind_direction = convertWindDirection(open_meteo.wind_direction_10m[i]);
+          break;
+        default:          
+        forcast[key] = open_meteo[key][i];
+          break;
+      }
     }
     if (weather_array[index]?.date && weather_array[index]?.date.toLocaleDateString() === date.toLocaleDateString()) {
       weather_array[index].forcasts.push(forcast)
