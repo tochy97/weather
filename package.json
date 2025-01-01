@@ -1,13 +1,15 @@
 {
-  "name": "@egeonu/weather",
+  "name": "@egeonu/weather-types",
   "version": "2.2.7",
-  "main": "lib/Weather.mjs",
+  "main": "lib/src/index.js",
   "files": [
     "lib/**/*"
   ],
   "type": "module",
   "dependencies": {
+    "@egeonu-types/weather-types": "file:",
     "@egeonu/weather": "file:",
+    "@egeonu/weather-types": "file:",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
@@ -23,6 +25,7 @@
     "start": "react-scripts start",
     "react-build": "react-scripts build",
     "build": "webpack --config webpack.config.build.ts",
+    "types": "tsc",
     "dev": "webpack serve --config webpack.config.dev.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

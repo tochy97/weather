@@ -23,7 +23,7 @@ export default {
   },
   output: {
     filename: '[name].mjs',
-    path: path.resolve(__dirname, 'lib'),
+    path: path.resolve(__dirname, 'bundle'),
     chunkFormat: "module",
     library: {
       type: "module",

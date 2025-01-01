@@ -16,10 +16,13 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "jsx": "react",
-    "outDir": "./build/",
+    "outDir": "lib",
     "sourceMap": true,
+    "declaration": true
   },
   "exclude": [
-      "./src/test"
+      "./src/test",
+      "./src/setupTests.ts",
+      "./src/react-app-env.d.ts"
   ]
 }

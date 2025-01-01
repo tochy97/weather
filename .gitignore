@@ -8,6 +8,7 @@
 # production
 /build
 /lib
+/bundle
 
 # misc
 .DS_Store
