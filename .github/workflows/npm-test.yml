@@ -14,5 +14,4 @@ jobs:
           node-version: 20
       - run: npm install --legacy-peer-deps
       - run: npm run types
-      - run: cp src/Weather.css lib/src/
       - run: npm test

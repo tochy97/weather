@@ -1,6 +1,6 @@
 {
   "name": "@egeonu/weather-types",
-  "version": "2.2.7",
+  "version": "0.0.1",
   "main": "lib/src/index.js",
   "files": [
     "lib/**/*"
@@ -25,7 +25,7 @@
     "start": "react-scripts start",
     "react-build": "react-scripts build",
     "build": "webpack --config webpack.config.build.ts",
-    "types": "tsc",
+    "types": "rm -rf lib && tsc && cp src/Weather.css lib/src/ && fix-tsc-es-imports -y -V",
     "dev": "webpack serve --config webpack.config.dev.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -65,6 +65,7 @@
     "ajv": "^8.17.1",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
+    "fix-tsc-es-imports": "^0.1.6",
     "globals": "^15.13.0",
     "html-webpack-plugin": "^5.6.3",
     "style-loader": "^4.0.0",

@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react';
 // import Weather, {WeatherUI} from "../index"
-import ReactWeather, { getWeatherOpenMeteo }  from "../../lib/src"
+import ReactWeather, { getWeatherOpenMeteo }  from "../../lib/src/index.js"
 
 let url = (latitude: number, longitude: number) => "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
 it("OpenMeteo: bad request", async () => {
