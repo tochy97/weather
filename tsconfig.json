@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "target": "es6",
+    "target": "ES5",
     "moduleResolution": "node",
     "lib": [
       "dom",
@@ -16,10 +16,16 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "jsx": "react",
-    "outDir": "./build/",
+    "outDir": "lib",
     "sourceMap": true,
+    "declaration": true
   },
+  "include": [
+    "./src"
+  ],
   "exclude": [
-      "./src/test"
+      "./src/test",
+      "./src/setupTests.ts",
+      "./src/react-app-env.d.ts"
   ]
 }

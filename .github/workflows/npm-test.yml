@@ -2,7 +2,7 @@ name: Node.js Package
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "types" ]
 
 jobs:
   test:
@@ -13,5 +13,5 @@ jobs:
         with:
           node-version: 20
       - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: npm run types
       - run: npm test
