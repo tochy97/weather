@@ -1,15 +1,13 @@
 {
-  "name": "@egeonu/weather-types",
-  "version": "0.0.1",
-  "main": "lib/src/index.js",
+  "name": "@egeonu/weather",
+  "version": "2.2.8",
+  "main": "lib/index.js",
   "files": [
     "lib/**/*"
   ],
   "type": "module",
   "dependencies": {
-    "@egeonu-types/weather-types": "file:",
     "@egeonu/weather": "file:",
-    "@egeonu/weather-types": "file:",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
@@ -24,8 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "react-build": "react-scripts build",
-    "build": "webpack --config webpack.config.build.ts",
-    "types": "rm -rf lib && tsc && cp src/Weather.css lib/src/ && fix-tsc-es-imports -y -V",
+    "build": "rm -rf lib && tsc && cp src/Weather.css lib/ && fix-tsc-es-imports -y -V && webpack --config webpack.config.build.ts",
     "dev": "webpack serve --config webpack.config.dev.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

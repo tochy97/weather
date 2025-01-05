@@ -2,7 +2,7 @@ import path, { dirname } from 'path';
 
 export default {
   entry: {
-    Weather: './src/index.ts',
+    Weather: './lib/index.js',
   },
   mode: "production",
   module: {
@@ -23,7 +23,7 @@ export default {
   },
   output: {
     filename: '[name].mjs',
-    path: path.resolve(__dirname, 'bundle'),
+    path: path.resolve(__dirname, 'dist'),
     chunkFormat: "module",
     library: {
       type: "module",
