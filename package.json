@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "types": "rm -rf lib && tsc && fix-tsc-es-imports -y -V",
     "react-build": "react-scripts build",
     "build": "rm -rf lib && tsc && cp src/Weather.css lib/ && fix-tsc-es-imports -y -V && webpack --config webpack.config.build.ts",
     "dev": "webpack serve --config webpack.config.dev.ts",
