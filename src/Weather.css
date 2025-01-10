@@ -12,7 +12,7 @@
     margin: .2em;
 }
 
-.update_button:hover {
+.button {
     cursor: pointer;
 }
 
@@ -40,4 +40,10 @@
 
 .temperature {
     font-size: 3em;
+}
+
+.dateBox {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }

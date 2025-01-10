@@ -9,6 +9,8 @@ type Props = Config;
 type State = {
   config: Config
   loaded: boolean
+  date: Date
+  index: number
 }
 export default class ReactWeather extends Component<Props, State> {
   public state: State;
@@ -20,20 +22,24 @@ export default class ReactWeather extends Component<Props, State> {
     this.state = {
       config: props,
       loaded: false,
+      date: new Date(),
+      index: 0
     }
   }
   componentDidMount() {
     this.updateWeatherData = this.updateWeatherData.bind(this);
     this.updateCurrentWeather = this.updateCurrentWeather.bind(this);
+    this.nextDayForcast = this.nextDayForcast.bind(this);
+    this.prevDayForcast = this.prevDayForcast.bind(this);
     this.updateWeatherData();
   }
   updateWeatherData = async () => {
     this.setState({
       loaded: false
     })
-    let url = "https://api.open-meteo.com/v1/forecast?latitude=" + this.state.config.latitude + "&longitude=" + this.state.config.longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m";
+    let url = "https://api.open-meteo.com/v1/forecast?latitude=" + this.state.config.latitude + "&longitude=" + this.state.config.longitude + "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m&past_days=1&forecast_days=16";
 
-    const weather = await getWeatherOpenMeteo(url,this.state.config.temperature_unit);
+    const weather = await getWeatherOpenMeteo(url, this.state.config.temperature_unit);
     if (weather.error === undefined) {
       this.weather_data = weather.body;
       this.updateCurrentWeather();
@@ -48,12 +54,12 @@ export default class ReactWeather extends Component<Props, State> {
     this.setState({
       loaded: false
     });
-    const current_hour: number = (new Date()).getHours() + 1;
+    const current_hour: number = this.state.date.getHours() + 1;
     if (typeof this.weather_data !== "undefined" && Array.isArray(this.weather_data) && this.weather_data.length !== 0) {
-      let current_forcast = this.weather_data[0].forcasts.find(ele =>
+      let current_forcast = this.weather_data[this.state.index].forcasts.find(ele =>
         ele.hour === current_hour
       )
-      if (current_forcast === undefined) {
+      if (typeof current_forcast === "undefined") {
         await this.updateWeatherData();
         return this.current_weather;
       }
@@ -62,11 +68,33 @@ export default class ReactWeather extends Component<Props, State> {
     }
     const callback = () => {
       this.setState({
+        date: this.weather_data[this.state.index].date,
         loaded: true
       });
     }
-    setTimeout(callback, 2000);
+    setTimeout(callback, 100);
     return this.current_weather;
+  }
+
+  nextDayForcast() {
+    this.setState({
+      index: this.state.index + 1
+    });
+    this.updateCurrentWeather();
+  }
+
+  prevDayForcast() {
+    this.setState({
+      index: this.state.index - 1
+    });
+    this.updateCurrentWeather();
+  }
+
+  isToday = (date: Date) => {
+    const today = new Date();
+    return date.getDate() === today.getDate()
+      && date.getMonth() === today.getMonth()
+      && date.getFullYear() === today.getFullYear();
   }
 
   render() {
@@ -76,6 +104,38 @@ export default class ReactWeather extends Component<Props, State> {
           this.state.loaded
           &&
           <div className='weather'>
+            <div className='dateBox'>
+              {
+                this.state.index > 0 &&
+                <svg
+                  className="button"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  onClick={this.prevDayForcast}
+                >
+                  <path d="M16.1795 3.26875C15.7889 2.87823 15.1558 2.87823 14.7652 3.26875L8.12078 9.91322C6.94952 11.0845 6.94916 12.9833 8.11996 14.155L14.6903 20.7304C15.0808 21.121 15.714 21.121 16.1045 20.7304C16.495 20.3399 16.495 19.7067 16.1045 19.3162L9.53246 12.7442C9.14194 12.3536 9.14194 11.7205 9.53246 11.33L16.1795 4.68297C16.57 4.29244 16.57 3.65928 16.1795 3.26875Z" fill="#0F0F0F" />
+                </svg>
+              }
+              {this.state.date.toDateString()}
+              {
+                this.state.index < 15 &&
+                <svg
+                  className="button"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  transform="matrix(-1, 0, 0, 1, 0, 0)"
+                  onClick={this.nextDayForcast}
+                >
+                  <path xmlns="http://www.w3.org/2000/svg" d="M16.1795 3.26875C15.7889 2.87823 15.1558 2.87823 14.7652 3.26875L8.12078 9.91322C6.94952 11.0845 6.94916 12.9833 8.11996 14.155L14.6903 20.7304C15.0808 21.121 15.714 21.121 16.1045 20.7304C16.495 20.3399 16.495 19.7067 16.1045 19.3162L9.53246 12.7442C9.14194 12.3536 9.14194 11.7205 9.53246 11.33L16.1795 4.68297C16.57 4.29244 16.57 3.65928 16.1795 3.26875Z" fill="#0F0F0F" />
+                </svg>
+              }
+            </div>
             <div className='temperature'>{this.current_weather?.temperature + `\u00B0` + this.state.config.temperature_unit.toUpperCase()} </div>
             <div>{this.current_weather?.weather_condition}</div>
 
@@ -83,7 +143,7 @@ export default class ReactWeather extends Component<Props, State> {
           </div>
         }
         <svg
-          className={this.state.loaded ? "update_button" : "spin"}
+          className={this.state.loaded ? "button" : "spin"}
           fill="currentColor"
           height="1em"
           stroke="currentColor"
