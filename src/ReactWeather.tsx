@@ -10,12 +10,12 @@ type State = {
   config: Config
   loaded: boolean
   date: Date
-  index: number
 }
 export default class ReactWeather extends Component<Props, State> {
   public state: State;
   public weather_data: Array<WeatherData>;
   public current_weather?: any;
+  private index: number;
 
   constructor(props: Props) {
     super(props);
@@ -23,8 +23,8 @@ export default class ReactWeather extends Component<Props, State> {
       config: props,
       loaded: false,
       date: new Date(),
-      index: 0
     }
+    this.index = 0;
   }
   componentDidMount() {
     this.updateWeatherData = this.updateWeatherData.bind(this);
@@ -54,9 +54,9 @@ export default class ReactWeather extends Component<Props, State> {
     this.setState({
       loaded: false
     });
-    const current_hour: number = this.state.date.getHours() + 1;
+    const current_hour: number = (new Date).getHours() + 1;
     if (typeof this.weather_data !== "undefined" && Array.isArray(this.weather_data) && this.weather_data.length !== 0) {
-      let current_forcast = this.weather_data[this.state.index].forcasts.find(ele =>
+      let current_forcast = this.weather_data[this.index].forcasts.find(ele =>
         ele.hour === current_hour
       )
       if (typeof current_forcast === "undefined") {
@@ -68,7 +68,7 @@ export default class ReactWeather extends Component<Props, State> {
     }
     const callback = () => {
       this.setState({
-        date: this.weather_data[this.state.index].date,
+        date: this.weather_data[this.index].date,
         loaded: true
       });
     }
@@ -77,16 +77,12 @@ export default class ReactWeather extends Component<Props, State> {
   }
 
   nextDayForcast() {
-    this.setState({
-      index: this.state.index + 1
-    });
+    this.index++;
     this.updateCurrentWeather();
   }
 
   prevDayForcast() {
-    this.setState({
-      index: this.state.index - 1
-    });
+    this.index--;
     this.updateCurrentWeather();
   }
 
@@ -106,7 +102,7 @@ export default class ReactWeather extends Component<Props, State> {
           <div className='weather'>
             <div className='dateBox'>
               {
-                this.state.index > 0 &&
+                this.index > 0 &&
                 <svg
                   className="button"
                   width="20px"
@@ -121,7 +117,7 @@ export default class ReactWeather extends Component<Props, State> {
               }
               {this.state.date.toDateString()}
               {
-                this.state.index < 15 &&
+                this.index < 15 &&
                 <svg
                   className="button"
                   width="20px"
