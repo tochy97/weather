@@ -1,6 +1,6 @@
 {
   "name": "@egeonu/weather",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "main": "lib/index.js",
   "files": [
     "lib/**/*"
@@ -21,8 +21,7 @@
   },
   "scripts": {
     "start": "webpack serve --config webpack.config.dev.ts",
-    "types": "rm -rf lib && tsc && cp src/Weather.css lib/ && fix-tsc-es-imports -y -V",
-    "build": "webpack --config webpack.config.build.ts",
+    "build": "rm -rf lib && tsc && postcss src/**/*.css --u autoprefixer -d lib && fix-tsc-es-imports -y -V",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -59,11 +58,14 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
     "ajv": "^8.17.1",
+    "autoprefixer": "^10.4.20",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
     "fix-tsc-es-imports": "^0.1.6",
     "globals": "^15.13.0",
     "html-webpack-plugin": "^5.6.3",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.7.2",

@@ -13,5 +13,5 @@ jobs:
         with:
           node-version: 20
       - run: npm install --legacy-peer-deps
-      - run: npm run types
+      - run: npm run build
       - run: npm test

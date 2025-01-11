@@ -8,24 +8,18 @@
     min-width: 10em;
 }
 
-.weather > * {
+.weather {
     margin: .2em;
 }
 
 .button {
     cursor: pointer;
+    padding-inline: .25em;
 }
 
-@-moz-keyframes spin {
-    to {
-        -moz-transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes spin {
-    to {
-        -webkit-transform: rotate(360deg);
-    }
+.right {    
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 @keyframes spin {
