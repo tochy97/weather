@@ -28,8 +28,10 @@
     }
 }
 
-.spin {
+.spin, .refresh:hover {
     animation: spin 1000ms linear infinite;
+    max-width: 1.5em;
+    max-height: 1.5em;
 }
 
 .temperature {
