@@ -121,8 +121,8 @@ export default class ReactWeather extends Component<Props, State> {
                 this.index < 15 &&
                 <svg
                   className="button right"
-                  width="1.25em"
-                  height="1.25em"
+                  width="1.5em"
+                  height="1.5em"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   fill="currentColor"
@@ -142,8 +142,8 @@ export default class ReactWeather extends Component<Props, State> {
         <svg
           className={this.state.loaded ? "button" : "spin"}
           fill="currentColor"
-          height="1.75em"
-          width="1.75em"
+          height="1.5em"
+          width="1.5em"
           stroke="currentColor"
           strokeWidth="0"
           viewBox="0 0 24 24"
